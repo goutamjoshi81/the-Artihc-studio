@@ -1,0 +1,913 @@
+/* ==========================================================================
+   THE ARTIHC STUDIO — MASTER ARCHITECTURAL DESIGN SYSTEM
+   Version 1.0.0
+   ========================================================================== */
+
+:root {
+  /* Architectural Color System — Honed Travertine & Living Bronze */
+  --noir: #0E0E0C;
+  --noir-deep: #070706;
+  --noir-subtle: #181815;
+  --travertine: #F8F6F1;
+  --canvas-alt: #EFEBE3;
+  --atelier-white: #FFFFFF;
+  --stone-border: rgba(14, 14, 12, 0.08);
+  --stone-border-subtle: rgba(14, 14, 12, 0.04);
+  --stone-border-light: rgba(255, 255, 255, 0.14);
+  --bronze: #A8865D;
+  --bronze-light: #C4A782;
+  --bronze-dark: #7A5F3B;
+  --bronze-glow: rgba(168, 134, 93, 0.22);
+  --muted: #66635C;
+  --muted-light: #9B9890;
+  --success: #2E6F40;
+  --warning: #B37D28;
+  --danger: #963535;
+
+  /* Typography Scales */
+  --font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-heading: 'Syne', -apple-system, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Architectural Spacing */
+  --header-height: 84px;
+  --container-max: 1540px;
+  --container-narrow: 1140px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+
+  /* Emil Kowalski Motion Physics & Curves */
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-fast: 0.18s var(--ease-snappy);
+  --transition-medium: 0.45s var(--ease-editorial);
+  --transition-slow: 0.85s var(--ease-editorial);
+
+  /* Impeccable Multi-Layered Diffuse Elevation */
+  --shadow-subtle: 0 1px 3px rgba(14, 14, 12, 0.03), 0 6px 18px rgba(14, 14, 12, 0.03);
+  --shadow-card: 0 1px 3px rgba(14, 14, 12, 0.02), 0 10px 28px rgba(14, 14, 12, 0.04), 0 20px 48px rgba(14, 14, 12, 0.03);
+  --shadow-elevated: 0 2px 6px rgba(14, 14, 12, 0.03), 0 16px 36px rgba(14, 14, 12, 0.06), 0 40px 90px rgba(14, 14, 12, 0.07);
+
+  /* Tectonic Atelier Tokens */
+  --color-travertine: #F8F6F1;
+  --color-atelierCream: #F2EFE9;
+  --color-monolithNoir: #0E0E0C;
+  --color-charcoal: #181816;
+  --color-bronze: #A8865D;
+  --color-warmOchre: #C4A782;
+  --color-antiqueBrass: #7A5F3B;
+  --color-stoneBorder: rgba(14, 14, 12, 0.08);
+}
+
+/* Tectonic Atelier Hairlines & Grid Elements */
+.hairline-b { border-bottom: 1px solid rgba(14, 14, 12, 0.08); }
+.hairline-t { border-top: 1px solid rgba(14, 14, 12, 0.08); }
+.hairline-r { border-right: 1px solid rgba(14, 14, 12, 0.08); }
+.hairline-l { border-left: 1px solid rgba(14, 14, 12, 0.08); }
+.stone-grid-border { border-color: rgba(14, 14, 12, 0.08); }
+
+.editorial-zoom {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+.group:hover .editorial-zoom {
+  transform: scale(1.045);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Base Reset & Smooth Typography */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background-color: var(--travertine);
+  color: var(--noir);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tactile Washi Paper / Honed Stone Grain Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  background-color: var(--travertine);
+  color: var(--noir);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Architectural Selection */
+::selection {
+  background-color: var(--noir);
+  color: var(--travertine);
+}
+
+/* Headings — Impeccable Balance & Optical Rhythm */
+h1, h2 {
+  font-family: var(--font-display);
+  color: var(--noir);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+h3, h4, h5, h6 {
+  color: var(--noir);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.tabular-nums, .tech-label, .numeral {
+  font-variant-numeric: tabular-nums;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Links & Buttons */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.section {
+  padding-top: clamp(4.5rem, 8vw, 8.5rem);
+  padding-bottom: clamp(4.5rem, 8vw, 8.5rem);
+  position: relative;
+}
+
+.section-hero {
+  padding-top: calc(var(--header-height) + 2rem);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Architectural Grid Hairlines */
+.grid-hairline {
+  border-top: 1px solid var(--stone-border);
+  border-bottom: 1px solid var(--stone-border);
+}
+
+.border-top-hairline {
+  border-top: 1px solid var(--stone-border);
+}
+
+.border-bottom-hairline {
+  border-bottom: 1px solid var(--stone-border);
+}
+
+/* Technical Label / Architectural Tag */
+.tech-label {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tech-label-bronze {
+  color: var(--bronze);
+}
+
+.tech-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--bronze);
+  display: inline-block;
+}
+
+/* Buttons — Emil Kowalski Tactile Micro-Interactions */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.85rem;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  transition: transform 0.18s var(--ease-snappy), background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1px;
+  will-change: transform;
+}
+
+.btn:active {
+  transform: scale(0.97) !important;
+  transition-duration: 0.05s !important;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  background-color: var(--noir);
+  color: var(--travertine);
+  border: 1px solid var(--noir);
+  box-shadow: 0 4px 14px rgba(14, 14, 12, 0.12);
+}
+
+.btn-primary:hover {
+  background-color: var(--bronze);
+  border-color: var(--bronze);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(168, 134, 93, 0.28);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--noir);
+  border: 1px solid var(--noir);
+}
+
+.btn-outline:hover {
+  background-color: var(--noir);
+  color: var(--travertine);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 14, 12, 0.1);
+}
+
+.btn-outline-white {
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.btn-outline-white:hover {
+  background-color: #FFFFFF;
+  color: var(--noir);
+  border-color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-link {
+  padding: 0;
+  color: var(--noir);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  position: relative;
+}
+
+.btn-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-medium);
+}
+
+.btn-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Monograph Editorial Badge */
+.monograph-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(12, 12, 10, 0.04);
+  border: 1px solid var(--stone-border);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-radius: 2px;
+}
+
+/* Architectural Image Placeholder Styling */
+.arch-placeholder {
+  position: relative;
+  background: linear-gradient(145deg, #EFECE6 0%, #E3DFC8 50%, #DBD5C5 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  border: 1px solid var(--stone-border);
+  transition: all var(--transition-slow);
+}
+
+.arch-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(12, 12, 10, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(12, 12, 10, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.arch-placeholder-blueprint {
+  background: linear-gradient(135deg, #1C1E20 0%, #151618 100%);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.arch-placeholder-blueprint::before {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.arch-placeholder-warm {
+  background: linear-gradient(135deg, #E6DDD0 0%, #D8CDBC 50%, #CBBFA9 100%);
+}
+
+.arch-placeholder-stone {
+  background: linear-gradient(135deg, #E5E1D8 0%, #D6D0C5 100%);
+}
+
+.arch-placeholder-dark {
+  background: linear-gradient(135deg, #1A1A18 0%, #10100E 100%);
+}
+
+.arch-placeholder:hover {
+  border-color: var(--bronze);
+}
+
+.arch-placeholder-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 1.5rem;
+  max-width: 90%;
+  pointer-events: none;
+}
+
+.arch-placeholder-badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  background: rgba(12, 12, 10, 0.75);
+  color: #FFFFFF;
+  backdrop-filter: blur(4px);
+  border-radius: 1px;
+  margin-bottom: 0.5rem;
+}
+
+/* Aspect Ratios */
+.aspect-cinema {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-editorial {
+  aspect-ratio: 4 / 5;
+}
+
+.aspect-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-banner {
+  aspect-ratio: 21 / 9;
+}
+
+.aspect-ultrawide {
+  aspect-ratio: 2.35 / 1;
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 1.75rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.95rem 1.15rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--noir);
+  background-color: var(--atelier-white);
+  border: 1px solid var(--stone-border);
+  border-radius: 2px;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--noir);
+  box-shadow: 0 0 0 1px var(--noir);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--muted-light);
+  font-weight: 300;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Admin Dashboard Specific Styles */
+.admin-shell {
+  background-color: #F3F4F6;
+  color: #111827;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background-color: #0E0E0C;
+  color: #E5E7EB;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  border-right: 1px solid #1F2937;
+}
+
+.admin-content {
+  margin-left: 260px;
+  padding: 2.25rem;
+  min-height: 100vh;
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    transition: transform var(--transition-medium);
+  }
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+  .admin-content {
+    margin-left: 0;
+    padding: 1.25rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s var(--ease-editorial) forwards;
+}
+
+/* Subtle architectural grain */
+.bg-grain {
+  background-image: radial-gradient(rgba(12, 12, 10, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Ambient Architectural Light Beam */
+.ambient-light-glow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(600px, 80vw, 1200px);
+  height: clamp(400px, 50vw, 700px);
+  background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(168, 134, 93, 0.12) 0%, rgba(248, 246, 241, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+  animation: ambientBreathe 14s ease-in-out infinite alternate;
+}
+
+@keyframes ambientBreathe {
+  0% {
+    opacity: 0.55;
+    transform: translateX(-50%) scale(0.96);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translateX(-50%) scale(1.04);
+  }
+}
+
+/* Interactive Card Physics (Emil Kowalski) */
+.arch-card-interactive {
+  transition: transform 0.45s var(--ease-editorial), box-shadow 0.45s var(--ease-editorial), border-color 0.3s ease;
+  will-change: transform;
+}
+
+.arch-card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+  border-color: rgba(168, 134, 93, 0.35);
+}
+
+.arch-card-interactive:active {
+  transform: translateY(-1px) scale(0.99);
+  transition-duration: 0.06s;
+}
+
+/* Image Scale on Card Hover */
+.zoom-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.zoom-image {
+  transition: transform 0.85s var(--ease-editorial);
+  will-change: transform;
+}
+
+.group:hover .zoom-image,
+.group:hover img,
+.arch-card-interactive:hover .zoom-image,
+.arch-card-interactive:hover img {
+  transform: scale(1.035);
+}
+
+/* Sleek Architectural Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--travertine);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8D4CA;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bronze);
+}
+
+/* Focus Visibility & Accessibility */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   MESMERIZING AESTHETICS & EMIL KOWALSKI PHYSICS ENHANCEMENTS
+   ========================================================================== */
+
+/* Top Viewport Monograph Scroll Progress Bar */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 60%, #E8D3B9 100%);
+  z-index: 10001;
+  box-shadow: 0 0 12px rgba(168, 134, 93, 0.6);
+  pointer-events: none;
+  transition: width 0.08s ease-out;
+}
+
+/* Ambient Cursor-Following Lighting (Quiet Luxury) */
+.mouse-ambient-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    700px circle at var(--mouse-x, 50vw) var(--mouse-y, 30vh),
+    rgba(168, 134, 93, 0.045) 0%,
+    rgba(212, 175, 55, 0.015) 35%,
+    transparent 70%
+  );
+  transition: background 0.15s ease-out;
+}
+
+/* Interactive Card Spotlight Effect */
+.spotlight-card,
+.arch-card-interactive {
+  position: relative;
+}
+
+.spotlight-card::before,
+.arch-card-interactive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    450px circle at var(--mouse-card-x, 50%) var(--mouse-card-y, 50%),
+    rgba(168, 134, 93, 0.09) 0%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-editorial);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.spotlight-card:hover::before,
+.arch-card-interactive:hover::before {
+  opacity: 1;
+}
+
+/* Button Luxury Shimmer / Reflection Sweep */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.85s var(--ease-editorial);
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  left: 150%;
+}
+
+/* Editorial Serif Italic Styling for Poetic Cadence */
+h1 em, h2 em, .editorial-serif-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--bronze-dark);
+}
+
+/* Live Studio Pulse Beacon */
+.live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--bronze);
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.live-pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background-color: var(--bronze);
+  opacity: 0.6;
+  animation: pulseBeacon 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes pulseBeacon {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  60% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Choreographed Staggered Entrance Keyframes (Emil Kowalski) */
+@keyframes slideUpEditorial {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUpEditorial 0.8s var(--ease-editorial) both;
+}
+
+.animate-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-3 {
+  animation-delay: 0.35s;
+}
+
+.animate-delay-4 {
+  animation-delay: 0.5s;
+}
+
+/* Smooth Image Luminosity Warming on Hover */
+.warm-hover-image {
+  transition: filter 0.6s var(--ease-editorial), transform 0.85s var(--ease-editorial);
+}
+
+.warm-hover-image:hover,
+.group:hover .warm-hover-image {
+  filter: contrast(102%) brightness(102%) saturate(105%);
+}
+
+/* Monograph Lightbox Overlay */
+.monograph-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(12, 12, 10, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 4rem);
+  animation: lightboxFadeIn 0.35s var(--ease-editorial);
+}
+
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.monograph-lightbox-content {
+  position: relative;
+  max-width: 1400px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: lightboxZoomIn 0.4s var(--ease-spring);
+}
+
+@keyframes lightboxZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

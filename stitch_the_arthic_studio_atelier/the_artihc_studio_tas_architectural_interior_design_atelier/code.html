@@ -1,0 +1,1257 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>THE ARTIHC STUDIO (TAS) — Architectural &amp; Interior Design Atelier</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600&amp;family=Syne:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            travertine: '#F8F6F1',
+            atelierCream: '#F2EFE9',
+            monolithNoir: '#0E0E0C',
+            charcoal: '#181816',
+            bronze: '#A8865D',
+            warmOchre: '#C4A782',
+            antiqueBrass: '#7A5F3B',
+            stoneBorder: 'rgba(14, 14, 12, 0.08)',
+            stoneBorderHover: 'rgba(168, 134, 93, 0.35)'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Syne"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Architectural tokens & resets */
+    :root {
+      --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-micro: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    body {
+      background-color: #F8F6F1;
+      color: #0E0E0C;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Subtle washi tactile noise overlay */
+    .washi-grain {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.024;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Custom architectural cursor follower */
+    #custom-cursor {
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s var(--ease-editorial), height 0.3s var(--ease-editorial), background-color 0.25s ease, opacity 0.2s ease;
+    }
+
+    /* Hairline borders & 2px max radius */
+    .stone-grid-border {
+      border-color: rgba(14, 14, 12, 0.08);
+    }
+    
+    .hairline-b { border-bottom: 1px solid rgba(14, 14, 12, 0.08); }
+    .hairline-t { border-top: 1px solid rgba(14, 14, 12, 0.08); }
+    .hairline-r { border-right: 1px solid rgba(14, 14, 12, 0.08); }
+    .hairline-l { border-left: 1px solid rgba(14, 14, 12, 0.08); }
+
+    /* Custom smooth scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F2EFE9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #A8865D;
+      border-radius: 1px;
+    }
+
+    /* Text selection */
+    ::selection {
+      background-color: #0E0E0C;
+      color: #F8F6F1;
+    }
+
+    .editorial-zoom {
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+    }
+    .group:hover .editorial-zoom {
+      transform: scale(1.045);
+    }
+  </style>
+</head>
+<body class="selection:bg-monolithNoir selection:text-travertine relative min-h-screen antialiased">
+<!-- Grain Overlay -->
+<div class="washi-grain"></div>
+<!-- Custom Contextual Cursor -->
+<div class="fixed top-0 left-0 z-[9999] flex items-center justify-center rounded-full bg-monolithNoir/80 backdrop-blur-xs text-[9px] tracking-widest text-travertine uppercase font-display font-medium opacity-0 md:opacity-100 transition-all pointer-events-none w-3 h-3" id="custom-cursor" style="left: 50px; top: 2780px;">
+<span class="px-2 py-0.5 whitespace-nowrap hidden" id="cursor-label">VIEW</span>
+</div>
+<!-- Scroll Progress Indicator (Bronze Hairline) -->
+<div class="fixed top-0 left-0 h-[2px] bg-bronze z-[100] w-0 transition-all duration-75" id="scroll-progress"></div>
+<!-- ========================================================================= -->
+<!-- A. GLOBAL NAVIGATION & ATELIER STATUS BAR                                -->
+<!-- ========================================================================= -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#F8F6F1]/92 backdrop-blur-md hairline-b transition-all duration-300">
+<!-- Top Micro Telemetry Bar -->
+<div class="hidden lg:flex items-center justify-between px-8 py-1.5 text-[10px] tracking-[0.2em] uppercase text-monolithNoir/60 font-sans hairline-b bg-atelierCream/60">
+<div class="flex items-center space-x-6">
+<span class="flex items-center gap-1.5 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-700 animate-pulse"></span>
+          Atelier Active
+        </span>
+<span class="text-monolithNoir/30">•</span>
+<span class="">Coordinates: 13.6288° N (Tirupati) • 12.9716° N (BLR) • 17.3850° N (HYD)</span>
+</div>
+<div class="flex items-center space-x-6">
+<span class="font-mono tracking-wider text-monolithNoir/80" id="atelier-clock">IST 11:27:43 AM</span>
+<span class="text-monolithNoir/30">•</span>
+<span class="text-bronze font-medium tracking-widest">Accepting New Projects (Q3/Q4)</span>
+</div>
+</div>
+<!-- Main Navigation Bar -->
+<div class="max-w-[1720px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+<!-- Monogram & Identity -->
+<a class="flex items-center gap-4 group cursor-pointer" data-cursor="TAS" href="#">
+<div class="w-10 h-10 flex items-center justify-center hairline-r pr-4">
+<!-- Monogram Column & Arch SVG -->
+<svg class="w-8 h-8 fill-none stroke-monolithNoir stroke-[1.5] transition-transform duration-500 group-hover:scale-105" viewBox="0 0 40 40">
+<rect fill="#0E0E0C" height="24" width="4" x="6" y="8"></rect>
+<rect fill="#0E0E0C" height="24" width="4" x="13" y="8"></rect>
+<path d="M21 32V18C21 12.4772 25.4772 8 31 8V8C36.5228 8 41 12.4772 41 18V32" stroke="#0E0E0C" stroke-width="2.5"></path>
+<line stroke="#0E0E0C" stroke-width="2" x1="4" x2="36" y1="32" y2="32"></line>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="font-serif text-xl tracking-[0.16em] uppercase text-monolithNoir font-medium leading-none">The Artihc Studio</span>
+<span class="text-[9px] tracking-[0.28em] uppercase text-monolithNoir/50 font-sans mt-1">Architecture &amp; Interior Atelier</span>
+</div>
+</a>
+<!-- Desktop Nav Links -->
+<nav class="hidden md:flex items-center space-x-10 text-[11px] font-sans tracking-[0.22em] uppercase text-monolithNoir/80"><a class="hover:text-bronze transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-bronze hover:after:w-full after:transition-all" href="#portfolio">Portfolio</a>
+<a class="hover:text-bronze transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-bronze hover:after:w-full after:transition-all" href="#materiality">Materials</a>
+<a class="hover:text-bronze transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-bronze hover:after:w-full after:transition-all" href="#materiality">Services</a>
+<a class="hover:text-bronze transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-bronze hover:after:w-full after:transition-all" href="#case-study">About</a>
+<a class="hover:text-bronze transition-colors py-1 text-monolithNoir/50 hover:text-monolithNoir" href="#inquiry">Contact</a></nav>
+<!-- CTA & Concierge Action -->
+<div class="flex items-center space-x-4">
+<a class="group relative inline-flex items-center gap-3 px-6 py-3 bg-monolithNoir text-travertine text-[10px] tracking-[0.24em] uppercase font-sans overflow-hidden transition-all duration-300 hover:bg-bronze" data-cursor="INQUIRE" href="#inquiry">
+<span class="relative z-10 font-medium">Contact</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-right" aria-hidden="true" class="lucide lucide-arrow-up-right w-3.5 h-3.5 relative z-10 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+</a>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- B. HERO SECTION (MONOLITHIC SPATIAL ENTRY)                                -->
+<!-- ========================================================================= -->
+<section class="relative pt-32 lg:pt-40 pb-20 px-6 lg:px-12 max-w-[1720px] mx-auto min-h-screen flex flex-col justify-between">
+<!-- Grid Hairline Guides Background -->
+<div class="absolute inset-0 pointer-events-none px-6 lg:px-12 grid grid-cols-4 lg:grid-cols-12 gap-8 z-0">
+<div class="hairline-l h-full"></div>
+<div class="hairline-l h-full hidden lg:block"></div>
+<div class="hairline-l h-full hidden lg:block"></div>
+<div class="hairline-l h-full"></div>
+<div class="hairline-l h-full hidden lg:block"></div>
+<div class="hairline-l h-full hidden lg:block"></div>
+<div class="hairline-l h-full"></div>
+<div class="hairline-l h-full hidden lg:block"></div>
+<div class="hairline-l h-full hidden lg:block"></div>
+<div class="hairline-l h-full"></div>
+<div class="hairline-l h-full hidden lg:block"></div>
+<div class="hairline-l hairline-r h-full hidden lg:block"></div>
+</div>
+<!-- Editorial Header Statement -->
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-16 pt-8">
+<div class="lg:col-span-8 space-y-6">
+<div class="flex items-center gap-3 text-[10px] tracking-[0.28em] uppercase text-bronze font-sans font-semibold">
+<span class="inline-block w-8 h-[1px] bg-bronze"></span>
+<span class="">Architectural Sanctum • Volumetric Light &amp; Stone</span>
+</div>
+<h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.75rem] font-light leading-[1.02] tracking-tight text-monolithNoir">
+          Spaces sculpted by <span class="italic font-normal text-bronze">light</span>, proportion &amp; monolithic materiality.
+        </h1>
+</div>
+<div class="lg:col-span-4 space-y-5 lg:pl-6 hairline-l">
+<p class="font-sans text-sm text-monolithNoir/70 font-light leading-relaxed">
+          Operating across Tirupati, Bangalore, and Hyderabad. We conceive private residential estates, duplex penthouses, and crafted environments using raw travertine, fumed timber, and patinated bronze.
+        </p>
+<div class="flex items-center gap-6 pt-2 text-[10px] tracking-[0.2em] uppercase font-sans text-monolithNoir/50">
+<div>
+<div class="text-monolithNoir font-medium text-xs font-mono">180+</div>
+<div class="">Sanctuaries Crafted</div>
+</div>
+<div class="hairline-l pl-6">
+<div class="text-monolithNoir font-medium text-xs font-mono">₹450 Cr+</div>
+<div class="">Asset Portfolio</div>
+</div>
+<div class="hairline-l pl-6">
+<div class="text-monolithNoir font-medium text-xs font-mono">3 Ateliers</div>
+<div class="">South India</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Monolithic Hero Visual Canvas with Ambient Lighting Frame -->
+<div class="relative z-10 w-full overflow-hidden bg-atelierCream border border-stoneBorder group shadow-2xl" data-cursor="EXPLORE">
+<div class="relative aspect-[16/9] lg:aspect-[21/9] w-full overflow-hidden">
+<!-- Main Hero Architectural Showcase Image -->
+<img alt="The Artihc Studio — Master Villa Suite in Cane Weave, Travertine &amp; Natural Light" class="editorial-zoom w-full h-full object-cover object-center filter saturate-[0.92] brightness-[0.97]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbjuMY85fVzzhlgrYV15loL8falIOKtApGxCjcymqS_wy4lUTbYeeHYMgwp3Kg91EHp2NgKIyIjSZ9GUhz-jQqRcakO89DcgGdfRgNIJfbQagM__IgsHV-9JcQv7Im2I6_Gc-4lkeXpPeyXrsb5FE8KWgJ3rIMa0-9T2OlXIUQGprd5MSODK-2hicZGMmJEZbAP1ZnFJYdaKltk1p2b4zyW9vt3l_dE_VwHsIHMQ">
+<!-- Cinematic Vignette & Ambient Layer -->
+<div class="absolute inset-0 bg-gradient-to-t from-monolithNoir/85 via-monolithNoir/25 to-black/10"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-monolithNoir/40 via-transparent to-monolithNoir/20 pointer-events-none"></div>
+<!-- Monograph Spatial Stamp (Top Left) -->
+<div class="absolute top-6 left-6 lg:top-10 lg:left-10 flex items-center gap-3 bg-monolithNoir/85 backdrop-blur-md px-4 py-2 border border-white/10 text-travertine">
+<span class="w-2 h-2 rounded-full bg-bronze animate-pulse"></span>
+<span class="text-[10px] tracking-[0.24em] uppercase font-sans font-medium">Plate No. 01 — The Tirupati Ridge Estate</span>
+</div>
+<!-- Spatial Scale Interactive Pill (Top Right) -->
+<div class="hidden sm:flex absolute top-6 right-6 lg:top-10 lg:right-10 items-center gap-3 bg-monolithNoir/75 backdrop-blur-md px-4 py-2 border border-white/10 text-travertine/90 text-[10px] tracking-[0.2em] uppercase font-sans">
+<span class="text-warmOchre font-mono">Scale 1:50</span>
+<span class="text-white/30">•</span>
+<span class="">9,200 SQ.FT</span>
+<span class="text-white/30">•</span>
+<span class="text-travertine font-medium">Tirupati Ridge Sanctuary</span>
+</div>
+<!-- Technical Metadata HUD (Bottom) -->
+<div class="absolute bottom-6 inset-x-6 lg:bottom-10 lg:inset-x-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-5 text-travertine">
+<div class="space-y-1.5 max-w-xl">
+<div class="text-[10px] tracking-[0.3em] uppercase text-warmOchre font-sans font-semibold flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-warmOchre rounded-full"></span>
+<span class="">Primary Residence • 9,200 SQ.FT • 2024</span>
+</div>
+<div class="font-serif text-2xl lg:text-4xl font-light tracking-wide leading-tight">The Pavilion of Cane &amp; Fluted Travertine</div>
+<p class="font-sans text-xs text-travertine/70 font-light hidden md:block">Seamless flow between sun-drenched colonnades, tactile fluted woodwork, and monolithic travertine surfaces.</p>
+</div>
+<div class="flex items-center gap-4 lg:gap-6 text-[10px] tracking-[0.2em] uppercase font-sans text-travertine/90 bg-monolithNoir/80 backdrop-blur-md px-5 py-3 border border-white/10 shadow-lg">
+<span class="">Natural Rattan</span>
+<span class="text-warmOchre/60">•</span>
+<span class="">Fumed French Oak</span>
+<span class="text-warmOchre/60">•</span>
+<span class="text-warmOchre font-medium">Honed Navona Stone</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- C. ASYMMETRICAL PORTFOLIO MONOGRAPH GALLERY                               -->
+<!-- ========================================================================= -->
+<section class="py-20 px-6 lg:px-12 max-w-[1720px] mx-auto hairline-t" id="atelier-directory">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6"><div>
+      <div class="text-[10px] tracking-[0.3em] uppercase text-bronze font-sans mb-3 flex items-center gap-2">
+        <span class="">00</span>
+        <span class="w-6 h-[1px] bg-bronze"></span>
+        <span class="">Overview &amp; Directory</span>
+      </div>
+      <h2 class="font-serif text-3xl lg:text-4xl font-light text-monolithNoir">
+        Studio Navigation &amp; Sections
+      </h2>
+    </div>
+    <div class="text-xs font-sans text-monolithNoir/60 max-w-md font-light leading-relaxed">
+      Direct access to our studio background, architectural services, completed projects archive, and consultation inquiries.
+    </div></div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Passage 01: About / Manifesto -->
+    <a href="#inquiry" class="group relative bg-atelierCream/40 border border-stoneBorder p-8 flex flex-col justify-between hover:bg-[#F8F6F1] hover:border-bronze transition-all duration-300 min-h-[340px]" data-cursor="READ"><div>
+        <div class="flex items-center justify-between text-[10px] tracking-[0.24em] uppercase text-bronze font-sans mb-6">
+          <span class="">Section 01</span>
+          <span class="font-mono text-monolithNoir/40">01/04</span>
+        </div>
+        <div class="text-[9px] tracking-[0.22em] uppercase text-monolithNoir/50 font-sans mb-2">Studio Philosophy &amp; Story</div>
+        <h3 class="font-serif text-2xl text-monolithNoir font-normal leading-snug mb-3 group-hover:text-bronze transition-colors">
+          About The Studio
+        </h3>
+        <p class="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
+          Our design philosophy, history, and focus on natural materials, light, and timeless architecture across South India.
+        </p>
+      </div>
+      <div class="pt-8 hairline-t flex items-center justify-between text-[10px] tracking-[0.22em] uppercase font-sans text-monolithNoir group-hover:text-bronze transition-colors">
+        <span class="font-medium">Learn About Us</span>
+        <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </div></a>
+
+    <!-- Passage 02: Services / Disciplines -->
+    <a href="#materiality" class="group relative bg-atelierCream/40 border border-stoneBorder p-8 flex flex-col justify-between hover:bg-[#F8F6F1] hover:border-bronze transition-all duration-300 min-h-[340px]" data-cursor="EXPLORE"><div>
+        <div class="flex items-center justify-between text-[10px] tracking-[0.24em] uppercase text-bronze font-sans mb-6">
+          <span class="">Section 02</span>
+          <span class="font-mono text-monolithNoir/40">02/04</span>
+        </div>
+        <div class="text-[9px] tracking-[0.22em] uppercase text-monolithNoir/50 font-sans mb-2">What We Offer</div>
+        <h3 class="font-serif text-2xl text-monolithNoir font-normal leading-snug mb-3 group-hover:text-bronze transition-colors">
+          Architecture &amp; Interior Services
+        </h3>
+        <p class="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
+          Comprehensive architectural design, interior styling, custom joinery, and landscape architecture from concept to handover.
+        </p>
+      </div>
+      <div class="pt-8 hairline-t flex items-center justify-between text-[10px] tracking-[0.22em] uppercase font-sans text-monolithNoir group-hover:text-bronze transition-colors">
+        <span class="font-medium">View Services</span>
+        <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </div></a>
+
+    <!-- Passage 03: Monographs / Portfolio -->
+    <a href="#portfolio" class="group relative bg-atelierCream/40 border border-stoneBorder p-8 flex flex-col justify-between hover:bg-[#F8F6F1] hover:border-bronze transition-all duration-300 min-h-[340px]" data-cursor="VIEW"><div>
+        <div class="flex items-center justify-between text-[10px] tracking-[0.24em] uppercase text-bronze font-sans mb-6">
+          <span class="">Section 03</span>
+          <span class="font-mono text-monolithNoir/40">03/04</span>
+        </div>
+        <div class="text-[9px] tracking-[0.22em] uppercase text-monolithNoir/50 font-sans mb-2">Featured Works &amp; Projects</div>
+        <h3 class="font-serif text-2xl text-monolithNoir font-normal leading-snug mb-3 group-hover:text-bronze transition-colors">
+          Portfolio of 180+ Homes
+        </h3>
+        <p class="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
+          Browse completed villa residences, luxury duplex penthouses, and private estates across South India.
+        </p>
+      </div>
+      <div class="pt-8 hairline-t flex items-center justify-between text-[10px] tracking-[0.22em] uppercase font-sans text-monolithNoir group-hover:text-bronze transition-colors">
+        <span class="font-medium">Explore Portfolio</span>
+        <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </div></a>
+
+    <!-- Passage 04: Commission Concierge / Contact -->
+    <a href="#inquiry" class="group relative bg-atelierCream/40 border border-stoneBorder p-8 flex flex-col justify-between hover:bg-[#F8F6F1] hover:border-bronze transition-all duration-300 min-h-[340px]" data-cursor="INQUIRE"><div>
+        <div class="flex items-center justify-between text-[10px] tracking-[0.24em] uppercase text-bronze font-sans mb-6">
+          <span class="">Section 04</span>
+          <span class="font-mono text-monolithNoir/40">04/04</span>
+        </div>
+        <div class="text-[9px] tracking-[0.22em] uppercase text-monolithNoir/50 font-sans mb-2">Consultation &amp; Inquiries</div>
+        <h3 class="font-serif text-2xl text-monolithNoir font-normal leading-snug mb-3 group-hover:text-bronze transition-colors">
+          Contact Our Studio
+        </h3>
+        <p class="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
+          Discuss your prospective residential project with our principal architectural teams in Hyderabad, Bangalore, or Tirupati.
+        </p>
+      </div>
+      <div class="pt-8 hairline-t flex items-center justify-between text-[10px] tracking-[0.22em] uppercase font-sans text-monolithNoir group-hover:text-bronze transition-colors">
+        <span class="font-medium">Get In Touch</span>
+        <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </div></a>
+  </div>
+</section><section class="py-24 px-6 lg:px-12 max-w-[1720px] mx-auto hairline-t" id="portfolio">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 gap-6">
+<div><div class="text-[10px] tracking-[0.3em] uppercase text-bronze font-sans mb-3 flex items-center gap-2">
+<span class="">01</span>
+<span class="w-6 h-[1px] bg-bronze"></span>
+<span class="">Portfolio</span>
+</div>
+<h2 class="font-serif text-4xl lg:text-5xl font-light text-monolithNoir">
+          Featured Architectural Projects
+        </h2></div>
+<!-- Gallery Mode & Filter Controls -->
+<div class="flex flex-wrap items-center gap-4 text-[10px] tracking-[0.2em] uppercase font-sans">
+<!-- View Mode Switch -->
+<div class="inline-flex p-1 bg-atelierCream border border-stoneBorder">
+<button class="px-4 py-2 bg-monolithNoir text-travertine transition-all font-medium" id="view-editorial-btn" onclick="switchView('editorial')">Editorial Grid</button>
+<button class="px-4 py-2 text-monolithNoir/70 hover:text-monolithNoir transition-all" id="view-blueprint-btn" onclick="switchView('blueprint')">Blueprint Index</button>
+</div>
+<!-- Typology Filters -->
+<div class="hidden sm:flex items-center space-x-2 pl-4 hairline-l">
+<button class="port-filter active px-3 py-1.5 text-monolithNoir border-b border-monolithNoir" onclick="filterPortfolio('all')">All Typologies</button>
+<button class="port-filter px-3 py-1.5 text-monolithNoir/50 hover:text-monolithNoir transition-colors" onclick="filterPortfolio('residential')">Residential Estates</button>
+<button class="port-filter px-3 py-1.5 text-monolithNoir/50 hover:text-monolithNoir transition-colors" onclick="filterPortfolio('penthouse')">Duplex Penthouses</button>
+<button class="port-filter px-3 py-1.5 text-monolithNoir/50 hover:text-monolithNoir transition-colors" onclick="filterPortfolio('commercial')">Atelier Workplaces</button>
+</div>
+</div>
+</div>
+<!-- 1. EDITORIAL ASYMMETRICAL GRID -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8" id="gallery-editorial">
+<!-- Project 01: Hero 8-col Cinema Card -->
+<div class="md:col-span-8 group relative bg-atelierCream border border-stoneBorder overflow-hidden" data-cursor="VIEW">
+<div class="aspect-[16/10] overflow-hidden relative">
+<img alt="The Alwal Duplex Sanctuary — Hyderabad" class="editorial-zoom w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs_fb6UamXl_FLFohlRoubiWM29eAYuCDN5Bc5HnDutsmkteJkTed2bCOY2S1neic_juAjH_-sWOApxFfiSHVvZOOKCy-BtBwKfuda_4E0_Pd3vB1uDGdR3sy35L_PRIFef6dJaolbG-jG_XFRHFv7FeHVPbZdDflE1xt2hSur4stVVYaj2MRfpqI4HNfrYwYl2mc8uHJkw-dP8Ni1pt9jkIYfAHMI9W6U4kUe5w">
+<div class="absolute inset-0 bg-gradient-to-t from-monolithNoir/60 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 left-4 bg-monolithNoir/80 backdrop-blur-xs px-3 py-1 text-[9px] uppercase tracking-widest text-warmOchre border border-white/10 font-sans">
+        Monograph TAS-01
+      </div>
+</div>
+<div class="p-8 flex justify-between items-end hairline-t bg-[#F8F6F1]">
+<div>
+<div class="text-[9px] tracking-[0.26em] uppercase text-bronze font-sans mb-1.5">Hyderabad • 8,600 SQ.FT • 2024</div>
+<h3 class="font-serif text-2xl lg:text-3xl text-monolithNoir font-light">The Alwal Duplex Residence</h3>
+<p class="font-sans text-xs text-monolithNoir/70 mt-1 max-w-lg leading-relaxed">Sculpted cantilevered staircase encased in fluted acoustic limestone plaster, monolithic basalt slabs, and bronze balustrades.</p>
+</div>
+<a class="w-10 h-10 border border-stoneBorder flex items-center justify-center hover:bg-monolithNoir hover:text-travertine transition-colors shrink-0 ml-4" href="#case-study">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+</div>
+<!-- Project 02: Tall 4-col Portrait Card -->
+<div class="md:col-span-4 group relative bg-atelierCream border border-stoneBorder overflow-hidden" data-cursor="VIEW">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img alt="The Indiranagar Minimalist Penthouse — Bangalore" class="editorial-zoom w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC42JzAAH4u-Oe1ZUKqp1ghlTb0k8AqNyLVrR191fwt_cGpOLQBF-M7wwD7Ur0WPnsQDs-_gDiPlooxWwYVbJGwxz9CYSQKPZp9WxaEz6ZjEeTXo0toxvbBnanaP_SGcH-ZftEh4-L8zDyVcCPAM8DF_k3qVZBdlp9bN-UFExRxwgsHajDeEpqc5WXJd82dToIao54vz5Ehrd5r5T1G2F5EPuFIRjwcBtBsu5ldA">
+<div class="absolute inset-0 bg-gradient-to-t from-monolithNoir/60 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 left-4 bg-monolithNoir/80 backdrop-blur-xs px-3 py-1 text-[9px] uppercase tracking-widest text-warmOchre border border-white/10 font-sans">
+        Monograph TAS-02
+      </div>
+</div>
+<div class="p-8 hairline-t bg-[#F8F6F1]">
+<div class="text-[9px] tracking-[0.26em] uppercase text-bronze font-sans mb-1.5">Bangalore • 4,800 SQ.FT • 2024</div>
+<h3 class="font-serif text-2xl text-monolithNoir font-light">Indiranagar Sky Sanctuary</h3>
+<p class="font-sans text-xs text-monolithNoir/70 mt-1 leading-relaxed">Continuous fumed French oak floors balanced with polished Navona travertine kitchen island and warm diffuse perimeter clerestory light.</p>
+</div>
+</div>
+<!-- Project 03: 4-col Portrait Card -->
+<div class="md:col-span-4 group relative bg-atelierCream border border-stoneBorder overflow-hidden" data-cursor="VIEW">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img alt="The Tirupati Foothills Villa — Tirupati" class="editorial-zoom w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdWpBDYPDkKE4MCA2VBN8AGaNU9gkXcMzd3vAXjIQ8dAC-lmF4W6w7n9ywy4TmplGrhqelseCyEq_1Sjp2XvyytroDgUs0miDP7rPjGtZXeD6tHtJBf1N4wyuB70ubedbrWhzO1A8n_Q2M7LRYzQpl1pp7zzMldwJFEI-FX5TIo0j5SNNCLXU20omUvssH8l9uFUiW7RQBBKJ2gw1CXfBzwBSmF1r4XYIoh_3qUw">
+<div class="absolute inset-0 bg-gradient-to-t from-monolithNoir/60 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 left-4 bg-monolithNoir/80 backdrop-blur-xs px-3 py-1 text-[9px] uppercase tracking-widest text-warmOchre border border-white/10 font-sans">
+        Monograph TAS-03
+      </div>
+</div>
+<div class="p-8 hairline-t bg-[#F8F6F1]">
+<div class="text-[9px] tracking-[0.26em] uppercase text-bronze font-sans mb-1.5">Tirupati • 11,200 SQ.FT • 2023</div>
+<h3 class="font-serif text-2xl text-monolithNoir font-light">Sesha Hills Villa Estate</h3>
+<p class="font-sans text-xs text-monolithNoir/70 mt-1 leading-relaxed">Courtyard architecture framing views of sacred granite peaks with sunken stone seating pavilions and private cloister corridors.</p>
+</div>
+</div>
+<!-- Project 04: 8-col Cinema Card -->
+<div class="md:col-span-8 group relative bg-atelierCream border border-stoneBorder overflow-hidden" data-cursor="VIEW">
+<div class="aspect-[16/10] overflow-hidden relative">
+<img alt="Jubilee Hills Private Office — Hyderabad" class="editorial-zoom w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS6bkmyeySbGVXM-RmXB8L439KNxa8vSvHmgsRmLLZE6zWPgJdt_1HB6fv_4lui9DEh5-uR20mm5EkIkTZv0MTEh_MuyYNv7mASghxYFl3SM4NdlvOhZgyws7382OW8o8yG_ywuXoVPMhmyxCZfrtdOAWQaCMI2uW6DcomGgQExwlNCAQUIfV8ses63LLlLUDarPxzxWbkdA1Wh1X5NngFAcEwmUtUlfdAI3kamA">
+<div class="absolute inset-0 bg-gradient-to-t from-monolithNoir/60 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+<div class="absolute top-4 left-4 bg-monolithNoir/80 backdrop-blur-xs px-3 py-1 text-[9px] uppercase tracking-widest text-warmOchre border border-white/10 font-sans">
+        Monograph TAS-04
+      </div>
+</div>
+<div class="p-8 flex justify-between items-end hairline-t bg-[#F8F6F1]">
+<div>
+<div class="text-[9px] tracking-[0.26em] uppercase text-bronze font-sans mb-1.5">Jubilee Hills • 6,500 SQ.FT • 2024</div>
+<h3 class="font-serif text-2xl lg:text-3xl text-monolithNoir font-light">The Atelier &amp; Boardroom Gallery</h3>
+<p class="font-sans text-xs text-monolithNoir/70 mt-1 max-w-lg leading-relaxed">Bespoke timber millwork with concealed micro-perforated acoustic panels and hand-patinated bronze lighting portals.</p>
+</div>
+<a class="w-10 h-10 border border-stoneBorder flex items-center justify-center hover:bg-monolithNoir hover:text-travertine transition-colors shrink-0 ml-4" href="#case-study">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+</div>
+</div>
+<!-- 2. BLUEPRINT INDEX MODE (High Density Architectural Table) -->
+<div class="hidden overflow-x-auto border border-stoneBorder bg-atelierCream" id="gallery-blueprint">
+<table class="w-full text-left font-sans text-xs border-collapse">
+<thead>
+<tr class="hairline-b bg-monolithNoir text-travertine text-[10px] tracking-[0.22em] uppercase font-medium">
+<th class="py-4 px-6">Catalog ID</th>
+<th class="py-4 px-6">Project Title</th>
+<th class="py-4 px-6">Typology</th>
+<th class="py-4 px-6">Atelier Locale</th>
+<th class="py-4 px-6">Scale (SQ.FT)</th>
+<th class="py-4 px-6">Material Key</th>
+<th class="py-4 px-6 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stoneBorder text-monolithNoir/80">
+<tr class="hover:bg-[#F8F6F1] transition-colors cursor-pointer group" onmouseenter="previewBlueprint('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'The Alwal Duplex')">
+<td class="py-5 px-6 font-mono text-[11px] text-bronze">TAS-2024-08</td>
+<td class="py-5 px-6 font-serif text-base font-normal text-monolithNoir">The Alwal Duplex Residence</td>
+<td class="py-5 px-6 uppercase text-[10px] tracking-wider">Duplex Penthouse</td>
+<td class="py-5 px-6">Hyderabad, TS</td>
+<td class="py-5 px-6 font-mono">8,600</td>
+<td class="py-5 px-6 text-monolithNoir/60">Navona Travertine • Fumed Oak</td>
+<td class="py-5 px-6 text-right"><span class="text-[10px] uppercase tracking-wider text-bronze underline">View Dossier</span></td>
+</tr>
+<tr class="hover:bg-[#F8F6F1] transition-colors cursor-pointer group" onmouseenter="previewBlueprint('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'Indiranagar Sky')">
+<td class="py-5 px-6 font-mono text-[11px] text-bronze">TAS-2024-04</td>
+<td class="py-5 px-6 font-serif text-base font-normal text-monolithNoir">Indiranagar Sky Sanctuary</td>
+<td class="py-5 px-6 uppercase text-[10px] tracking-wider">Penthouse</td>
+<td class="py-5 px-6">Bangalore, KA</td>
+<td class="py-5 px-6 font-mono">4,800</td>
+<td class="py-5 px-6 text-monolithNoir/60">French Oak • Patinated Bronze</td>
+<td class="py-5 px-6 text-right"><span class="text-[10px] uppercase tracking-wider text-bronze underline">View Dossier</span></td>
+</tr>
+<tr class="hover:bg-[#F8F6F1] transition-colors cursor-pointer group" onmouseenter="previewBlueprint('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'Sesha Hills Villa')">
+<td class="py-5 px-6 font-mono text-[11px] text-bronze">TAS-2023-11</td>
+<td class="py-5 px-6 font-serif text-base font-normal text-monolithNoir">Sesha Hills Villa Estate</td>
+<td class="py-5 px-6 uppercase text-[10px] tracking-wider">Private Villa</td>
+<td class="py-5 px-6">Tirupati, AP</td>
+<td class="py-5 px-6 font-mono">11,200</td>
+<td class="py-5 px-6 text-monolithNoir/60">Granite Ashlar • Cane Weave</td>
+<td class="py-5 px-6 text-right"><span class="text-[10px] uppercase tracking-wider text-bronze underline">View Dossier</span></td>
+</tr>
+<tr class="hover:bg-[#F8F6F1] transition-colors cursor-pointer group" onmouseenter="previewBlueprint('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=800&amp;q=80', 'Jubilee Hills Atelier')">
+<td class="py-5 px-6 font-mono text-[11px] text-bronze">TAS-2024-01</td>
+<td class="py-5 px-6 font-serif text-base font-normal text-monolithNoir">Jubilee Hills Private Atelier</td>
+<td class="py-5 px-6 uppercase text-[10px] tracking-wider">Corporate Studio</td>
+<td class="py-5 px-6">Hyderabad, TS</td>
+<td class="py-5 px-6 font-mono">6,500</td>
+<td class="py-5 px-6 text-monolithNoir/60">Calacatta Oro • Antique Brass</td>
+<td class="py-5 px-6 text-right"><span class="text-[10px] uppercase tracking-wider text-bronze underline">View Dossier</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- D. THE MATERIALITY ARCHIVE (INTERACTIVE MATERIAL LAB)                     -->
+<!-- ========================================================================= -->
+<section class="py-24 px-6 lg:px-12 max-w-[1720px] mx-auto hairline-t bg-atelierCream/40" id="materiality">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: Manifesto & Material Index -->
+<div class="lg:col-span-5 space-y-8">
+<div>
+<div class="text-[10px] tracking-[0.3em] uppercase text-bronze font-sans mb-3 flex items-center gap-2">
+<span class="">02</span>
+<span class="w-6 h-[1px] bg-bronze"></span>
+<span class="">The Tactile Archive</span>
+</div>
+<h2 class="font-serif text-4xl lg:text-5xl font-light text-monolithNoir">
+            Raw Materiality &amp; Tactile Resonance
+          </h2>
+<p class="font-sans text-xs text-monolithNoir/70 font-light mt-4 leading-relaxed">
+            Every sanctuary is founded on non-synthetic, tactile matter. Examine our curated palette, acoustic characteristics, and daylight reflections under varied sunlight temperatures.
+          </p>
+</div>
+<!-- Material Selection Tab List -->
+<div class="space-y-2" id="material-list">
+<button class="mat-btn active w-full text-left p-4 border border-monolithNoir bg-monolithNoir text-travertine transition-all flex items-center justify-between" onclick="selectMaterial(0)">
+<div>
+<div class="font-serif text-lg">Honed Navona Travertine</div>
+<div class="text-[9px] tracking-[0.2em] uppercase text-warmOchre">Quarried in Tivoli, Italy • Matte Finish</div>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" aria-hidden="true" class="lucide lucide-sparkles w-4 h-4 text-warmOchre"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
+</button>
+<button class="mat-btn w-full text-left p-4 border border-stoneBorder bg-[#F8F6F1] text-monolithNoir hover:border-monolithNoir transition-all flex items-center justify-between" onclick="selectMaterial(1)">
+<div>
+<div class="font-serif text-lg">Quarter-Sawn Fumed Oak</div>
+<div class="text-[9px] tracking-[0.2em] uppercase text-monolithNoir/50">Sustainable European Oak • Ammonia Fumed</div>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-4 h-4 text-monolithNoir/30"><path d="m9 18 6-6-6-6"></path></svg>
+</button>
+<button class="mat-btn w-full text-left p-4 border border-stoneBorder bg-[#F8F6F1] text-monolithNoir hover:border-monolithNoir transition-all flex items-center justify-between" onclick="selectMaterial(2)">
+<div>
+<div class="font-serif text-lg">Hand-Patinated Bronze</div>
+<div class="text-[9px] tracking-[0.2em] uppercase text-monolithNoir/50">Crafted in Hyderabad • Wax Buffed Finish</div>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-4 h-4 text-monolithNoir/30"><path d="m9 18 6-6-6-6"></path></svg>
+</button>
+<button class="mat-btn w-full text-left p-4 border border-stoneBorder bg-[#F8F6F1] text-monolithNoir hover:border-monolithNoir transition-all flex items-center justify-between" onclick="selectMaterial(3)">
+<div>
+<div class="font-serif text-lg">Acoustic Lime Plaster</div>
+<div class="text-[9px] tracking-[0.2em] uppercase text-monolithNoir/50">Slaked Italian Lime • Monolithic Troweled</div>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" aria-hidden="true" class="lucide lucide-chevron-right w-4 h-4 text-monolithNoir/30"><path d="m9 18 6-6-6-6"></path></svg>
+</button>
+</div>
+<!-- Lighting Temperature Simulator Switcher -->
+<div class="p-6 border border-stoneBorder bg-travertine space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-[10px] tracking-[0.2em] uppercase font-sans font-medium text-monolithNoir">Sunlight Temperature Simulator</span>
+<span class="font-mono text-xs text-bronze" id="light-label">Morning East Light (4500K)</span>
+</div>
+<div class="grid grid-cols-3 gap-2 text-[9px] tracking-[0.16em] uppercase font-sans">
+<button class="py-2.5 px-2 bg-monolithNoir text-travertine text-center border border-monolithNoir" id="light-btn-morning" onclick="setLighting('morning')">
+              Morning East (4500K)
+            </button>
+<button class="py-2.5 px-2 bg-atelierCream text-monolithNoir text-center border border-stoneBorder hover:border-monolithNoir" id="light-btn-noon" onclick="setLighting('noon')">
+              Noon Solar (6500K)
+            </button>
+<button class="py-2.5 px-2 bg-atelierCream text-monolithNoir text-center border border-stoneBorder hover:border-monolithNoir" id="light-btn-night" onclick="setLighting('night')">
+              Nocturnal (2700K)
+            </button>
+</div>
+</div>
+</div>
+<!-- Right Column: High-Res Macro Visual Inspector -->
+<div class="lg:col-span-7 flex flex-col">
+<div class="relative w-full aspect-[4/3] lg:aspect-[16/11] border border-stoneBorder overflow-hidden bg-monolithNoir group">
+<!-- Active Macro Material Image with dynamic lighting filter -->
+<img alt="Honed Navona Travertine Macro Texture" class="w-full h-full object-cover transition-all duration-700 filter brightness-105 contrast-95" id="mat-display-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYX3_S5evT0FRnSLkxAPlF_JYgpyaHbf7dmoYVu2LVEf3HkG_tDLZQsrhph_frPyzWJ2LG9ygh_cnaw9dxjonLZIHqOEOX53P90RoLddP9vShOI0R0S8NJ4k5_GLoix8rptPpfB3633-PuzRH1R7yFT210y3MgreVSJ54Ru4Yj2FZnIng4r3-juTj7FNnz6ImxyxSAZCgbqpgZygt1UeXmHX99usEdD-i39hteeA">
+<!-- Ambient Light Simulation Overlay -->
+<div class="absolute inset-0 pointer-events-none transition-all duration-500 bg-amber-100/10 mix-blend-soft-light" id="light-overlay"></div>
+<!-- Material HUD Stamp -->
+<div class="absolute top-6 left-6 bg-monolithNoir/85 backdrop-blur-md px-4 py-2 border border-white/10 text-travertine">
+<div class="text-[9px] tracking-[0.24em] uppercase text-warmOchre">Macro Specification 1:1</div>
+<div class="font-serif text-lg font-light" id="mat-title-hud">Honed Navona Travertine</div>
+</div>
+<!-- Interactive Magnifier Tooltip -->
+<div class="absolute bottom-6 right-6 bg-monolithNoir/80 backdrop-blur-md px-4 py-2 border border-white/10 text-travertine/80 text-[10px] tracking-wider uppercase font-sans">
+            Tactile Swatch #TAS-MAT-01
+          </div>
+</div>
+<!-- Material Properties Matrix Bar -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+<div class="p-4 border border-stoneBorder bg-travertine">
+<div class="text-[9px] tracking-[0.2em] uppercase text-monolithNoir/50">Porosity &amp; Density</div>
+<div class="font-mono text-sm text-monolithNoir font-medium mt-1" id="mat-spec-1">2,480 kg/m³</div>
+</div>
+<div class="p-4 border border-stoneBorder bg-travertine">
+<div class="text-[9px] tracking-[0.2em] uppercase text-monolithNoir/50">Light Reflectance (LRV)</div>
+<div class="font-mono text-sm text-monolithNoir font-medium mt-1" id="mat-spec-2">62% Diffuse</div>
+</div>
+<div class="p-4 border border-stoneBorder bg-travertine">
+<div class="text-[9px] tracking-[0.2em] uppercase text-monolithNoir/50">Acoustic Absorption</div>
+<div class="font-mono text-sm text-monolithNoir font-medium mt-1" id="mat-spec-3">NRC 0.05 (Rigid)</div>
+</div>
+<div class="p-4 border border-stoneBorder bg-travertine">
+<div class="text-[9px] tracking-[0.2em] uppercase text-monolithNoir/50">Tactile Patina Index</div>
+<div class="font-mono text-sm text-bronze font-medium mt-1" id="mat-spec-4">High Tactility</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- E. PROJECT DETAIL MONOGRAPH (CASE STUDY DEEP DIVE)                         -->
+<!-- ========================================================================= -->
+<section class="py-24 px-6 lg:px-12 max-w-[1720px] mx-auto hairline-t" id="case-study">
+<div class="mb-12">
+<div class="text-[10px] tracking-[0.3em] uppercase text-bronze font-sans mb-3 flex items-center gap-2">
+<span class="">03</span>
+<span class="w-6 h-[1px] bg-bronze"></span>
+<span class="">Architectural Chapter</span>
+</div>
+<h2 class="font-serif text-4xl lg:text-5xl font-light text-monolithNoir">
+        Case Study: The Tirupati Ridge Sanctuary
+      </h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Sticky Left Architectural Specifications Sidebar -->
+<div class="lg:col-span-4 lg:sticky lg:top-28 space-y-8 bg-atelierCream p-8 border border-stoneBorder">
+<div class="space-y-4">
+<div class="text-[9px] tracking-[0.24em] uppercase text-bronze font-sans">Project Technical Dossier</div>
+<h3 class="font-serif text-2xl text-monolithNoir font-light">Ridge Villa Residence</h3>
+<p class="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
+            Conceived as a dialogue between Tirupati’s geological granite topography and private meditative domesticity. The ground plane seamlessly merges terrazzo with open water courts.
+          </p>
+</div>
+<div class="space-y-3 font-sans text-xs divide-y divide-stoneBorder pt-2">
+<div class="flex justify-between py-2.5">
+<span class="text-monolithNoir/50 uppercase text-[10px] tracking-wider">Footprint</span>
+<span class="font-mono text-monolithNoir">9,200 SQ.FT</span>
+</div>
+<div class="flex justify-between py-2.5">
+<span class="text-monolithNoir/50 uppercase text-[10px] tracking-wider">Completed</span>
+<span class="font-mono text-monolithNoir">December 2024</span>
+</div>
+<div class="flex justify-between py-2.5">
+<span class="text-monolithNoir/50 uppercase text-[10px] tracking-wider">Typology</span>
+<span class="text-monolithNoir">Private Residential Sanctum</span>
+</div>
+<div class="flex justify-between py-2.5">
+<span class="text-monolithNoir/50 uppercase text-[10px] tracking-wider">Key Elements</span>
+<span class="text-monolithNoir text-right">Rattan Wardrobes, Travertine Island, Bronze Portals</span>
+</div>
+<div class="flex justify-between py-2.5">
+<span class="text-monolithNoir/50 uppercase text-[10px] tracking-wider">Commission Lead</span>
+<span class="text-monolithNoir">Principal Architect V. Rao</span>
+</div>
+</div>
+<!-- Download Blueprint Button -->
+<button class="w-full py-3.5 border border-monolithNoir bg-monolithNoir text-travertine text-[10px] tracking-[0.22em] uppercase font-sans hover:bg-bronze hover:border-bronze transition-colors flex items-center justify-center gap-2" onclick="downloadBlueprintAlert()">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text" aria-hidden="true" class="lucide lucide-file-text w-3.5 h-3.5"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+<span class="">Download Spatial Specification (PDF)</span>
+</button>
+</div>
+<!-- Right Column: Visual Narrative & Before/After Comparison -->
+<div class="lg:col-span-8 space-y-12">
+<!-- Interactive Blueprint-to-Reality Comparison Slider -->
+<div class="space-y-3">
+<div class="flex items-center justify-between text-[10px] tracking-[0.2em] uppercase font-sans text-monolithNoir/60">
+<span class="">Spatial Realization: Architectural Study vs Built Reality</span>
+<span class="text-bronze font-medium">Drag slider to reveal built finish</span>
+</div>
+<div class="relative w-full aspect-[16/10] overflow-hidden border border-stoneBorder select-none group shadow-lg" data-cursor="DRAG" id="comparison-container">
+<!-- After (Built Reality Photo) -->
+<img alt="Built Reality Master Suite with Cane Millwork" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkSsvUpnvRzvrJehXPOzOEp0nvUPgCd3Ag9rWjnKPtnxRUzQvyxpcO9SzNBVxrvWQ6pmps-5eWIyOgOq5ONXy3wrFR7aeJSnKxrQbAqBnbYsC8u03vM1gcxEFvY4CaV2bWgdAMwr67O_nz2hTgHXF53rvJax6jtTHvQ_Jc_URE6K2_ZMAK46mUO2ekgowa3jQ8pFZ3Cj-mzF-qvi8nvXglFMy9B4V1wsdeQfzX5A">
+<!-- Before (CAD Vector Blueprint Aesthetic Layer) -->
+<div class="absolute inset-y-0 left-0 overflow-hidden w-1/2 border-r-2 border-bronze bg-[#141412]" id="comparison-before">
+<img alt="Architectural Plan &amp; Wireframe Stage" class="absolute inset-y-0 left-0 h-full max-w-none filter grayscale contrast-125 brightness-90 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMTlbczLYQaU3pchQEj1b7R8ATEr9nWCJzY-E2DzliuzADMiOPLABGzKG2dlyaz370O3V-H5q8pZ-xYMUI6UndbUVz2UywO48Mc8VH7rQJbZ75s0C6Mq2LQviGS2majqn8ZdFzvNLUOPLXttmUj0312EycgIOaAu9pJGCwxPIlC823OMb1tCGfghBdFYvbjJQiQH0MzwB7Vy-TQ_j4STVYJQEKCeF2JEnCaz91Eg" style="width: 1200px;">
+<div class="absolute inset-0 bg-[#0E0E0C]/80 mix-blend-multiply flex items-center justify-center">
+<div class="text-center space-y-2 p-6 border border-white/20 bg-monolithNoir/70 backdrop-blur-xs">
+<div class="text-travertine font-mono text-xs tracking-widest uppercase">CAD BLUEPRINT STAGE 03</div>
+<div class="text-[9px] text-warmOchre tracking-[0.25em] uppercase font-sans">Volumetric Massing &amp; Daylight Studies</div>
+</div>
+</div>
+</div>
+<!-- Slider Drag Handle -->
+<div class="absolute inset-y-0 left-1/2 -ml-4 flex items-center justify-center pointer-events-none" id="comparison-handle">
+<div class="w-8 h-8 rounded-full bg-monolithNoir border-2 border-warmOchre flex items-center justify-center text-travertine shadow-xl">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="move-horizontal" aria-hidden="true" class="lucide lucide-move-horizontal w-3.5 h-3.5"><path d="m18 8 4 4-4 4"></path><path d="M2 12h20"></path><path d="m6 8-4 4 4 4"></path></svg>
+</div>
+</div>
+<input class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize" id="comparison-range" max="100" min="0" oninput="updateComparison(this.value)" type="range" value="50">
+</div>
+</div>
+<!-- Daylight & Volumetric Geometry Narrative -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+<div class="space-y-4">
+<h4 class="font-serif text-2xl text-monolithNoir font-light">01. Daylight Modulation</h4>
+<p class="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
+              In South India's high-thermal zones, direct harsh solar gain is tempered through deep perforated cane arches. Natural illumination filters into micro-shadows across the lime wash walls without heating interior volumes.
+            </p>
+</div>
+<div class="space-y-4">
+<h4 class="font-serif text-2xl text-monolithNoir font-light">02. Micro-Joinery Details</h4>
+<p class="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
+              Every timber handle was lathed from solid teak and paired with flush bronze hardware. No exposed screwheads or synthetic veneers—preserving tactile honesty across decades of generational patina.
+            </p>
+</div>
+</div>
+<!-- Project Gallery Diptych -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="relative aspect-[4/3] border border-stoneBorder overflow-hidden group shadow-sm">
+<img alt="Gourmet Island Detail in Honed Travertine" class="editorial-zoom w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChJDewOFDC81LVTYvNtg3066vx5jIgHZhvug_TEyEkLRismUtQ70Gh0T29Xj7fklZKEhRl1L9n51RZzfzI2D6C-Pa-eo3d5jtpP9-ZdlAQGmUMfJ9kdFTw4p5NdnDf8Hi3pGaorlnno_ld6fTiiAY1vadZFfz9pEfI17ayuVa2BehgHlYkOa67p8_vxPrp8D3yCsNxRqhUjNUtGwjufaDs9nwpDrfjLUINGdquTw">
+<div class="absolute bottom-3 left-3 bg-monolithNoir/85 backdrop-blur-xs px-3.5 py-1.5 text-travertine text-[9px] uppercase font-sans tracking-widest border border-white/10">
+              Gourmet Island Detail
+            </div>
+</div>
+<div class="relative aspect-[4/3] border border-stoneBorder overflow-hidden group shadow-sm">
+<img alt="Living Room Horizon with Monolithic Windows" class="editorial-zoom w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPNNGcMy1VymsAKRRqfG6xUCAmIK7DY7cJHn2cvYonmcokyB8_gHkUXTcU4vroMzBmxR9hsftT3GS_jfDOLS0ZeZbhPRksIigiI2rQntkkgco0tgf6Icn2iDuMCD1IdAFaDOFyO2NIlhpLZEv1oQW9ZYPWPoT3uPffSsIDseigQhy8yAo41SGmQKAJTSNuYJ53zuAOdRYY0oo_QpSWjFwavPV6cAs5aaTtUU3Xkw">
+<div class="absolute bottom-3 left-3 bg-monolithNoir/85 backdrop-blur-xs px-3.5 py-1.5 text-travertine text-[9px] uppercase font-sans tracking-widest border border-white/10">
+              Living Room Horizon
+            </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- F. PRIVATE COMMISSION CONCIERGE (INQUIRY FLOW)                             -->
+<!-- ========================================================================= -->
+<section class="py-24 px-6 lg:px-12 max-w-[1720px] mx-auto hairline-t bg-atelierCream/60" id="inquiry">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-16 space-y-4"><div class="text-[10px] tracking-[0.32em] uppercase text-bronze font-sans font-semibold">Contact &amp; Inquiries</div>
+<h2 class="font-serif text-4xl sm:text-5xl font-light text-monolithNoir">
+          Start a Project Consultation
+        </h2>
+<p class="font-sans text-xs text-monolithNoir/70 max-w-lg mx-auto font-light">
+          We accept a select number of residential and commercial projects annually across Tirupati, Bangalore, and Hyderabad to guarantee attentive principal partner attention.
+        </p></div>
+<!-- Multi-step Inquiry Form Container -->
+<div class="border border-monolithNoir bg-[#F8F6F1] p-8 md:p-12 shadow-sm">
+<!-- Step Indicators -->
+<div class="grid grid-cols-4 gap-2 mb-10 pb-6 hairline-b text-center font-sans text-[10px] tracking-[0.18em] uppercase">
+<div class="text-monolithNoir font-medium border-b-2 border-monolithNoir pb-2" id="step-tab-1">01. Typology</div>
+<div class="text-monolithNoir/30 border-b-2 border-transparent pb-2" id="step-tab-2">02. Locale &amp; Scale</div>
+<div class="text-monolithNoir/30 border-b-2 border-transparent pb-2" id="step-tab-3">03. Investment</div>
+<div class="text-monolithNoir/30 border-b-2 border-transparent pb-2" id="step-tab-4">04. Brief</div>
+</div>
+<form id="commission-form" onsubmit="handleCommissionSubmit(event)">
+<!-- STEP 1: TYPOLOGY -->
+<div class="space-y-6" id="form-step-1">
+<label class="block text-xs uppercase tracking-[0.2em] text-monolithNoir font-medium">Select Spatial Typology</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<label class="border border-stoneBorder p-5 cursor-pointer hover:border-monolithNoir transition-all flex items-start justify-between has-[:checked]:border-monolithNoir has-[:checked]:bg-atelierCream">
+<div>
+<input checked="" class="hidden" name="typology" type="radio" value="Private Villa">
+<div class="font-serif text-lg text-monolithNoir">Private Residential Villa</div>
+<div class="text-[9px] tracking-wider text-monolithNoir/60 uppercase mt-1">Standalone sanctuary &amp; estate</div>
+</div>
+<div class="w-4 h-4 rounded-full border border-monolithNoir flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-monolithNoir"></div>
+</div>
+</label>
+<label class="border border-stoneBorder p-5 cursor-pointer hover:border-monolithNoir transition-all flex items-start justify-between has-[:checked]:border-monolithNoir has-[:checked]:bg-atelierCream">
+<div>
+<input class="hidden" name="typology" type="radio" value="Duplex Penthouse">
+<div class="font-serif text-lg text-monolithNoir">Duplex Penthouse</div>
+<div class="text-[9px] tracking-wider text-monolithNoir/60 uppercase mt-1">High-altitude luxury residence</div>
+</div>
+<div class="w-4 h-4 rounded-full border border-stoneBorder"></div>
+</label>
+<label class="border border-stoneBorder p-5 cursor-pointer hover:border-monolithNoir transition-all flex items-start justify-between has-[:checked]:border-monolithNoir has-[:checked]:bg-atelierCream">
+<div>
+<input class="hidden" name="typology" type="radio" value="Corporate Atelier">
+<div class="font-serif text-lg text-monolithNoir">Executive Atelier &amp; HQ</div>
+<div class="text-[9px] tracking-wider text-monolithNoir/60 uppercase mt-1">Bespoke boardroom &amp; studio</div>
+</div>
+<div class="w-4 h-4 rounded-full border border-stoneBorder"></div>
+</label>
+<label class="border border-stoneBorder p-5 cursor-pointer hover:border-monolithNoir transition-all flex items-start justify-between has-[:checked]:border-monolithNoir has-[:checked]:bg-atelierCream">
+<div>
+<input class="hidden" name="typology" type="radio" value="Bespoke Hospitality">
+<div class="font-serif text-lg text-monolithNoir">Bespoke Hospitality</div>
+<div class="text-[9px] tracking-wider text-monolithNoir/60 uppercase mt-1">Boutique sanctuary resort</div>
+</div>
+<div class="w-4 h-4 rounded-full border border-stoneBorder"></div>
+</label>
+</div>
+<div class="pt-4 flex justify-end">
+<button class="px-8 py-3.5 bg-monolithNoir text-travertine text-[10px] tracking-[0.24em] uppercase font-sans hover:bg-bronze transition-colors flex items-center gap-3" onclick="goToStep(2)" type="button">
+<span class="">Continue</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right w-3.5 h-3.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</button>
+</div>
+</div>
+<!-- STEP 2: LOCALE & SCALE -->
+<div class="space-y-6 hidden" id="form-step-2">
+<div class="space-y-2">
+<label class="block text-xs uppercase tracking-[0.2em] text-monolithNoir font-medium">Select Geographic Region</label>
+<div class="grid grid-cols-3 gap-3">
+<button class="city-opt py-3 px-4 border border-monolithNoir bg-monolithNoir text-travertine text-xs tracking-wider uppercase font-sans" onclick="selectCity(this, 'Hyderabad')" type="button">Hyderabad</button>
+<button class="city-opt py-3 px-4 border border-stoneBorder bg-travertine text-monolithNoir text-xs tracking-wider uppercase font-sans hover:border-monolithNoir" onclick="selectCity(this, 'Bangalore')" type="button">Bangalore</button>
+<button class="city-opt py-3 px-4 border border-stoneBorder bg-travertine text-monolithNoir text-xs tracking-wider uppercase font-sans hover:border-monolithNoir" onclick="selectCity(this, 'Tirupati')" type="button">Tirupati</button>
+</div>
+</div>
+<div class="space-y-2 pt-2">
+<label class="block text-xs uppercase tracking-[0.2em] text-monolithNoir font-medium">Estimated Footprint (SQ.FT)</label>
+<input class="w-full p-4 border border-stoneBorder bg-travertine font-sans text-sm focus:outline-hidden focus:border-monolithNoir text-monolithNoir" id="input-sqft" placeholder="e.g. 7,500 SQ.FT" type="text">
+</div>
+<div class="pt-4 flex justify-between">
+<button class="px-6 py-3 border border-stoneBorder text-monolithNoir text-[10px] tracking-[0.2em] uppercase font-sans" onclick="goToStep(1)" type="button">Back</button>
+<button class="px-8 py-3.5 bg-monolithNoir text-travertine text-[10px] tracking-[0.24em] uppercase font-sans hover:bg-bronze transition-colors" onclick="goToStep(3)" type="button">Continue to Investment</button>
+</div>
+</div>
+<!-- STEP 3: INVESTMENT -->
+<div class="space-y-6 hidden" id="form-step-3">
+<label class="block text-xs uppercase tracking-[0.2em] text-monolithNoir font-medium">Allocated Project Capital</label>
+<div class="space-y-3">
+<label class="border border-stoneBorder p-4 cursor-pointer hover:border-monolithNoir transition-all flex items-center justify-between block has-[:checked]:border-monolithNoir has-[:checked]:bg-atelierCream">
+<span class="font-serif text-lg text-monolithNoir">₹2.0 Crore — ₹3.5 Crore</span>
+<input checked="" class="accent-monolithNoir" name="budget" type="radio" value="2-3.5Cr">
+</label>
+<label class="border border-stoneBorder p-4 cursor-pointer hover:border-monolithNoir transition-all flex items-center justify-between block has-[:checked]:border-monolithNoir has-[:checked]:bg-atelierCream">
+<span class="font-serif text-lg text-monolithNoir">₹3.5 Crore — ₹7.0 Crore</span>
+<input class="accent-monolithNoir" name="budget" type="radio" value="3.5-7Cr">
+</label>
+<label class="border border-stoneBorder p-4 cursor-pointer hover:border-monolithNoir transition-all flex items-center justify-between block has-[:checked]:border-monolithNoir has-[:checked]:bg-atelierCream">
+<span class="font-serif text-lg text-monolithNoir">₹7.0 Crore+ (Monumental Commission)</span>
+<input class="accent-monolithNoir" name="budget" type="radio" value="7Cr+">
+</label>
+</div>
+<div class="pt-4 flex justify-between">
+<button class="px-6 py-3 border border-stoneBorder text-monolithNoir text-[10px] tracking-[0.2em] uppercase font-sans" onclick="goToStep(2)" type="button">Back</button>
+<button class="px-8 py-3.5 bg-monolithNoir text-travertine text-[10px] tracking-[0.24em] uppercase font-sans hover:bg-bronze transition-colors" onclick="goToStep(4)" type="button">Final Details</button>
+</div>
+</div>
+<!-- STEP 4: CONTACT & BRIEF -->
+<div class="space-y-6 hidden" id="form-step-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-[10px] uppercase tracking-wider text-monolithNoir/60 font-sans mb-1">Your Full Name</label>
+<input class="w-full p-3.5 border border-stoneBorder bg-travertine font-sans text-xs focus:outline-hidden focus:border-monolithNoir text-monolithNoir" id="client-name" placeholder="Srikanth Reddy" required="" type="text">
+</div>
+<div>
+<label class="block text-[10px] uppercase tracking-wider text-monolithNoir/60 font-sans mb-1">Direct Phone / WhatsApp</label>
+<input class="w-full p-3.5 border border-stoneBorder bg-travertine font-sans text-xs focus:outline-hidden focus:border-monolithNoir text-monolithNoir" id="client-phone" placeholder="+91 98490 00000" required="" type="tel">
+</div>
+</div>
+<div>
+<label class="block text-[10px] uppercase tracking-wider text-monolithNoir/60 font-sans mb-1">Spatial Brief &amp; Specific Vision</label>
+<textarea class="w-full p-3.5 border border-stoneBorder bg-travertine font-sans text-xs focus:outline-hidden focus:border-monolithNoir text-monolithNoir" id="client-notes" placeholder="Outline your spatial aspirations, timeline, or preferred natural stone elements..." rows="3"></textarea>
+</div>
+<div class="p-4 border border-stoneBorder bg-atelierCream flex items-center justify-between text-xs font-sans">
+<span class="text-monolithNoir/70">Prefers Instant Direct Partner VIP Chat</span>
+<a class="inline-flex items-center gap-1.5 text-bronze uppercase tracking-wider font-medium text-[10px] hover:underline" href="https://wa.me/919999999999?text=Hello%20The%20Artihc%20Studio%2C%20I%20would%20like%20to%20commission%20an%20architectural%20sanctuary" target="_blank">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="message-square" aria-hidden="true" class="lucide lucide-message-square w-3.5 h-3.5"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"></path></svg>
+<span class="">Direct WhatsApp VIP Desk</span>
+</a>
+</div>
+<div class="pt-4 flex justify-between">
+<button class="px-6 py-3 border border-stoneBorder text-monolithNoir text-[10px] tracking-[0.2em] uppercase font-sans" onclick="goToStep(3)" type="button">Back</button>
+<button class="px-10 py-4 bg-monolithNoir text-travertine text-[10px] tracking-[0.26em] uppercase font-sans hover:bg-bronze transition-colors flex items-center gap-2" type="submit">
+<span class="">Submit Atelier Commission</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-4 h-4"><path d="M20 6 9 17l-5-5"></path></svg>
+</button>
+</div>
+</div>
+</form>
+<!-- Success Message -->
+<div class="hidden text-center py-12 space-y-4" id="form-success">
+<div class="w-12 h-12 rounded-full bg-bronze/10 border border-bronze mx-auto flex items-center justify-center text-bronze">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" aria-hidden="true" class="lucide lucide-check w-6 h-6"><path d="M20 6 9 17l-5-5"></path></svg>
+</div>
+<h3 class="font-serif text-3xl text-monolithNoir font-light">Commission Inscribed</h3>
+<p class="font-sans text-xs text-monolithNoir/70 max-w-md mx-auto">
+            Your architectural inquiry has been logged with Priority Token #TAS-COMM-892. Principal Partner will review the brief and contact you within 24 business hours.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- G. ADMIN ATELIER PORTAL (CLIENT & MONOGRAPH DESK)                         -->
+<!-- ========================================================================= -->
+<section class="py-24 px-6 lg:px-12 max-w-[1720px] mx-auto hairline-t" id="portal">
+<div class="p-8 lg:p-12 border border-monolithNoir bg-[#121210] text-travertine">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 hairline-b pb-6 border-white/10">
+<div>
+<div class="text-[9px] tracking-[0.28em] uppercase text-warmOchre font-sans">Restricted Access • Partner Console</div>
+<h3 class="font-serif text-3xl font-light mt-1">Atelier Management &amp; Commission Queue</h3>
+</div>
+<div class="flex items-center gap-4 text-xs font-mono text-travertine/70">
+<span class="">Active Inquiries: 07</span>
+<span class="">•</span>
+<span class="text-emerald-400">Sync: Realtime</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Live Commission Queue Item 1 -->
+<div class="p-5 border border-white/10 bg-monolithNoir space-y-3">
+<div class="flex justify-between items-start">
+<span class="font-mono text-xs text-warmOchre">#INQ-882</span>
+<span class="text-[9px] px-2 py-0.5 border border-emerald-500/30 text-emerald-400 uppercase tracking-widest">New Priority</span>
+</div>
+<div class="font-serif text-xl">Dr. K. Srinivas Rao</div>
+<div class="text-xs text-travertine/60 space-y-1">
+<div class="">Typology: Private Villa (Jubilee Hills, HYD)</div>
+<div class="">Footprint: 12,000 SQ.FT • ₹7.5 Cr</div>
+</div>
+<div class="pt-2 flex gap-2">
+<button class="text-[9px] uppercase tracking-widest px-3 py-1.5 border border-white/20 hover:border-warmOchre hover:text-warmOchre transition-colors" onclick="alert('Client Dossier Opened for review')">Review Dossier</button>
+<button class="text-[9px] uppercase tracking-widest px-3 py-1.5 bg-bronze text-travertine" onclick="alert('Direct Tele-Consult Scheduled')">Engage</button>
+</div>
+</div>
+<!-- Live Commission Queue Item 2 -->
+<div class="p-5 border border-white/10 bg-monolithNoir space-y-3">
+<div class="flex justify-between items-start">
+<span class="font-mono text-xs text-warmOchre">#INQ-881</span>
+<span class="text-[9px] px-2 py-0.5 border border-amber-500/30 text-amber-400 uppercase tracking-widest">In Dialogue</span>
+</div>
+<div class="font-serif text-xl">Meera &amp; Arjun Nambiar</div>
+<div class="text-xs text-travertine/60 space-y-1">
+<div class="">Typology: Duplex Penthouse (Lavelle Rd, BLR)</div>
+<div class="">Footprint: 5,400 SQ.FT • ₹4.2 Cr</div>
+</div>
+<div class="pt-2 flex gap-2">
+<button class="text-[9px] uppercase tracking-widest px-3 py-1.5 border border-white/20 hover:border-warmOchre hover:text-warmOchre transition-colors" onclick="alert('Blueprint stage in progress')">Review Dossier</button>
+</div>
+</div>
+<!-- System Analytics Summary -->
+<div class="p-5 border border-white/10 bg-monolithNoir space-y-4">
+<div class="text-[9px] tracking-widest uppercase text-travertine/40">Quarterly Pipeline Metrics</div>
+<div class="space-y-2 font-sans text-xs">
+<div class="flex justify-between py-1 hairline-b border-white/10">
+<span class="text-travertine/60">Total Active Footprint</span>
+<span class="font-mono text-travertine">74,200 SQ.FT</span>
+</div>
+<div class="flex justify-between py-1 hairline-b border-white/10">
+<span class="text-travertine/60">Avg Commission Value</span>
+<span class="font-mono text-travertine">₹4.85 Cr</span>
+</div>
+<div class="flex justify-between py-1">
+<span class="text-travertine/60">Material Order Pipeline</span>
+<span class="font-mono text-emerald-400">On Track (Tivoli Import)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================================================= -->
+<!-- FOOTER: ATELIER ARCHIVE & LOCALES                                         -->
+<!-- ========================================================================= -->
+<footer class="hairline-t bg-monolithNoir text-travertine pt-20 pb-12 px-6 lg:px-12">
+<div class="max-w-[1720px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 hairline-b border-white/10">
+<!-- Atelier Col 1 -->
+<div class="md:col-span-4 space-y-6">
+<div class="flex items-center gap-3">
+<svg class="w-7 h-7 stroke-travertine stroke-[1.5] fill-none" viewBox="0 0 40 40">
+<rect fill="#F8F6F1" height="24" width="4" x="6" y="8"></rect>
+<rect fill="#F8F6F1" height="24" width="4" x="13" y="8"></rect>
+<path d="M21 32V18C21 12.4772 25.4772 8 31 8V8C36.5228 8 41 12.4772 41 18V32" stroke="#F8F6F1" stroke-width="2.5"></path>
+<line stroke="#F8F6F1" stroke-width="2" x1="4" x2="36" y1="32" y2="32"></line>
+</svg>
+<span class="font-serif text-2xl tracking-[0.16em] uppercase">The Artihc Studio</span>
+</div>
+<p class="font-sans text-xs text-travertine/60 font-light max-w-sm leading-relaxed">
+          Quiet luxury architectural atelier conceiving bespoke residential sanctuaries, duplex penthouses, and private estates across South India.
+        </p>
+<div class="text-[10px] tracking-[0.24em] uppercase text-warmOchre">
+          Awwwards &amp; Architectural Digest South Asia Featured
+        </div>
+</div>
+<!-- Atelier Col 2: Studio Locations -->
+<div class="md:col-span-5 grid grid-cols-3 gap-6 font-sans text-xs">
+<div class="space-y-2">
+<div class="text-[10px] tracking-[0.2em] uppercase text-warmOchre">Tirupati Atelier</div>
+<p class="text-travertine/60 leading-relaxed text-[11px]">
+            Ridge Compound, 2nd Cross, Karakambadi Road, Tirupati, AP 517507
+          </p>
+</div>
+<div class="space-y-2">
+<div class="text-[10px] tracking-[0.2em] uppercase text-warmOchre">Bangalore Studio</div>
+<p class="text-travertine/60 leading-relaxed text-[11px]">
+            100ft Road, 12th Main, Indiranagar, Bangalore, KA 560038
+          </p>
+</div>
+<div class="space-y-2">
+<div class="text-[10px] tracking-[0.2em] uppercase text-warmOchre">Hyderabad Atelier</div>
+<p class="text-travertine/60 leading-relaxed text-[11px]">
+            Road No. 36, Jubilee Hills, Hyderabad, TS 500033
+          </p>
+</div>
+</div>
+<!-- Atelier Col 3: Direct Dialogue -->
+<div class="md:col-span-3 space-y-4 font-sans text-xs">
+<div class="text-[10px] tracking-[0.2em] uppercase text-warmOchre">Direct Partner Liaison</div>
+<div class="text-travertine/80 space-y-1">
+<div class="">commissions@artihcstudio.com</div>
+<div class="">+91 (0) 877 228 9011</div>
+</div>
+<div class="pt-2">
+<a class="inline-block py-2.5 px-5 border border-white/20 text-[10px] tracking-[0.2em] uppercase text-travertine hover:border-bronze hover:text-bronze transition-colors" href="#inquiry">Contact Us</a>
+</div>
+</div>
+</div>
+<!-- Legal & Technical Stamp -->
+<div class="max-w-[1720px] mx-auto pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] tracking-[0.2em] uppercase text-travertine/40 font-sans gap-4">
+<div class="">© 2025 The Artihc Studio (TAS). All Rights Reserved.</div>
+<div class="flex items-center gap-6">
+<span class="">Architectural Standards: ISO 9001:2015</span>
+<span class="">•</span>
+<span class="">Aesthetic Privacy Enforced</span>
+</div>
+</div>
+</footer>
+<!-- ========================================================================= -->
+<!-- JAVASCRIPT: LUXURY INTERACTIONS & SIMULATOR LOGIC                         -->
+<!-- ========================================================================= -->
+<script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 1. Live IST Atelier Clock
+    function updateAtelierClock() {
+      const now = new Date();
+      const options = { 
+        timeZone: 'Asia/Kolkata', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: true 
+      };
+      const timeStr = new Intl.DateTimeFormat('en-US', options).format(now);
+      const clockEl = document.getElementById('atelier-clock');
+      if (clockEl) {
+        clockEl.innerText = `IST ${timeStr}`;
+      }
+    }
+    setInterval(updateAtelierClock, 1000);
+    updateAtelierClock();
+
+    // 2. Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const bar = document.getElementById('scroll-progress');
+      if (bar) {
+        bar.style.width = scrolled + '%';
+      }
+    });
+
+    // 3. Custom Cursor with Contextual Labels
+    const cursor = document.getElementById('custom-cursor');
+    const cursorLabel = document.getElementById('cursor-label');
+
+    window.addEventListener('mousemove', (e) => {
+      if (!cursor) return;
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('[data-cursor]').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        const text = el.getAttribute('data-cursor');
+        if (cursorLabel && text) {
+          cursorLabel.innerText = text;
+          cursorLabel.classList.remove('hidden');
+          cursor.classList.remove('w-3', 'h-3');
+          cursor.classList.add('px-3', 'py-1', 'h-auto', 'w-auto', 'bg-bronze', 'text-white');
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        if (cursorLabel) {
+          cursorLabel.classList.add('hidden');
+          cursor.classList.remove('px-3', 'py-1', 'h-auto', 'w-auto', 'bg-bronze', 'text-white');
+          cursor.classList.add('w-3', 'h-3');
+        }
+      });
+    });
+
+    // 4. Portfolio View Switcher (Editorial vs Blueprint Index)
+    function switchView(mode) {
+      const editBtn = document.getElementById('view-editorial-btn');
+      const blueBtn = document.getElementById('view-blueprint-btn');
+      const grid = document.getElementById('gallery-editorial');
+      const index = document.getElementById('gallery-blueprint');
+
+      if (mode === 'editorial') {
+        editBtn.className = 'px-4 py-2 bg-monolithNoir text-travertine transition-all font-medium';
+        blueBtn.className = 'px-4 py-2 text-monolithNoir/70 hover:text-monolithNoir transition-all';
+        grid.classList.remove('hidden');
+        index.classList.add('hidden');
+      } else {
+        blueBtn.className = 'px-4 py-2 bg-monolithNoir text-travertine transition-all font-medium';
+        editBtn.className = 'px-4 py-2 text-monolithNoir/70 hover:text-monolithNoir transition-all';
+        grid.classList.add('hidden');
+        index.classList.remove('hidden');
+      }
+    }
+
+    function filterPortfolio(category) {
+      document.querySelectorAll('.port-filter').forEach(btn => {
+        btn.classList.remove('active', 'border-b', 'border-monolithNoir');
+        btn.classList.add('text-monolithNoir/50');
+      });
+      event.target.classList.add('active', 'border-b', 'border-monolithNoir');
+      event.target.classList.remove('text-monolithNoir/50');
+    }
+
+    function previewBlueprint(url, title) {
+      // Subtle preview tooltip or custom cursor effect
+    }
+
+    // 5. Material Lab Data & Switcher
+    const materials = [
+      {
+        title: "Honed Navona Travertine",
+        image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1400&q=85",
+        porosity: "2,480 kg/m³",
+        lrv: "62% Diffuse",
+        acoustic: "NRC 0.05 (Rigid)",
+        patina: "High Tactility"
+      },
+      {
+        title: "Quarter-Sawn Fumed Oak",
+        image: "https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=1400&q=85",
+        porosity: "720 kg/m³",
+        lrv: "28% Matte",
+        acoustic: "NRC 0.12 (Warm)",
+        patina: "Deep Amber Aging"
+      },
+      {
+        title: "Hand-Patinated Bronze",
+        image: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1400&q=85",
+        porosity: "8,800 kg/m³",
+        lrv: "44% Specular",
+        acoustic: "Resonant",
+        patina: "Natural Wax Finish"
+      },
+      {
+        title: "Acoustic Lime Plaster",
+        image: "https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1400&q=85",
+        porosity: "1,650 kg/m³",
+        lrv: "74% Light Fill",
+        acoustic: "NRC 0.35 (Damped)",
+        patina: "Mineral Crystallized"
+      }
+    ];
+
+    function selectMaterial(index) {
+      const data = materials[index];
+      const img = document.getElementById('mat-display-img');
+      const hudTitle = document.getElementById('mat-title-hud');
+      
+      if (img && data) {
+        img.src = data.image;
+        hudTitle.innerText = data.title;
+        document.getElementById('mat-spec-1').innerText = data.porosity;
+        document.getElementById('mat-spec-2').innerText = data.lrv;
+        document.getElementById('mat-spec-3').innerText = data.acoustic;
+        document.getElementById('mat-spec-4').innerText = data.patina;
+      }
+
+      const buttons = document.querySelectorAll('.mat-btn');
+      buttons.forEach((btn, idx) => {
+        if (idx === index) {
+          btn.className = "mat-btn active w-full text-left p-4 border border-monolithNoir bg-monolithNoir text-travertine transition-all flex items-center justify-between";
+        } else {
+          btn.className = "mat-btn w-full text-left p-4 border border-stoneBorder bg-[#F8F6F1] text-monolithNoir hover:border-monolithNoir transition-all flex items-center justify-between";
+        }
+      });
+    }
+
+    // 6. Lighting Temperature Simulator
+    function setLighting(mode) {
+      const overlay = document.getElementById('light-overlay');
+      const label = document.getElementById('light-label');
+      const morningBtn = document.getElementById('light-btn-morning');
+      const noonBtn = document.getElementById('light-btn-noon');
+      const nightBtn = document.getElementById('light-btn-night');
+
+      [morningBtn, noonBtn, nightBtn].forEach(btn => {
+        btn.className = "py-2.5 px-2 bg-atelierCream text-monolithNoir text-center border border-stoneBorder hover:border-monolithNoir";
+      });
+
+      if (mode === 'morning') {
+        overlay.className = "absolute inset-0 pointer-events-none transition-all duration-500 bg-amber-100/15 mix-blend-soft-light";
+        label.innerText = "Morning East Light (4500K)";
+        morningBtn.className = "py-2.5 px-2 bg-monolithNoir text-travertine text-center border border-monolithNoir";
+      } else if (mode === 'noon') {
+        overlay.className = "absolute inset-0 pointer-events-none transition-all duration-500 bg-blue-100/10 mix-blend-color-dodge";
+        label.innerText = "Noon Solar Daylight (6500K)";
+        noonBtn.className = "py-2.5 px-2 bg-monolithNoir text-travertine text-center border border-monolithNoir";
+      } else if (mode === 'night') {
+        overlay.className = "absolute inset-0 pointer-events-none transition-all duration-500 bg-amber-900/35 mix-blend-multiply";
+        label.innerText = "Nocturnal Warm Ambient (2700K)";
+        nightBtn.className = "py-2.5 px-2 bg-monolithNoir text-travertine text-center border border-monolithNoir";
+      }
+    }
+
+    // 7. Spatial Blueprint Comparison Slider
+    function updateComparison(val) {
+      const beforeLayer = document.getElementById('comparison-before');
+      const handle = document.getElementById('comparison-handle');
+      if (beforeLayer && handle) {
+        beforeLayer.style.width = val + '%';
+        handle.style.left = val + '%';
+      }
+    }
+
+    function downloadBlueprintAlert() {
+      alert("Preparing High-Resolution Architectural Specification Dossier (PDF). Encrypted download dispatched for The Tirupati Ridge Estate.");
+    }
+
+    // 8. Commission Multi-Step Form Navigation
+    function goToStep(stepNum) {
+      for (let i = 1; i <= 4; i++) {
+        const stepEl = document.getElementById(`form-step-${i}`);
+        const tabEl = document.getElementById(`step-tab-${i}`);
+        if (stepEl) {
+          if (i === stepNum) {
+            stepEl.classList.remove('hidden');
+            tabEl.className = "text-monolithNoir font-medium border-b-2 border-monolithNoir pb-2";
+          } else {
+            stepEl.classList.add('hidden');
+            tabEl.className = "text-monolithNoir/30 border-b-2 border-transparent pb-2";
+          }
+        }
+      }
+    }
+
+    function selectCity(btn, cityName) {
+      document.querySelectorAll('.city-opt').forEach(b => {
+        b.className = "city-opt py-3 px-4 border border-stoneBorder bg-travertine text-monolithNoir text-xs tracking-wider uppercase font-sans hover:border-monolithNoir";
+      });
+      btn.className = "city-opt py-3 px-4 border border-monolithNoir bg-monolithNoir text-travertine text-xs tracking-wider uppercase font-sans";
+    }
+
+    function handleCommissionSubmit(e) {
+      e.preventDefault();
+      document.getElementById('commission-form').classList.add('hidden');
+      document.getElementById('form-success').classList.remove('hidden');
+    }
+  </script>
+
+
+</body></html>
