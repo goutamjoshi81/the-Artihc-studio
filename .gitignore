@@ -29,3 +29,7 @@ Thumbs.db
 
 # Agent local files
 .agent/
+.gemini/
+.agents/scratch/
+*.local
+

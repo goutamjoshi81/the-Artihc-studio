@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  ArrowRight, 
-  ArrowUpRight, 
-  Sparkles, 
-  ChevronRight, 
-  FileText, 
-  MoveHorizontal, 
-  Check, 
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Sparkles,
+  ChevronRight,
+  FileText,
+  MoveHorizontal,
+  Check,
   MessageSquare,
   Shield,
   Layers,
@@ -29,7 +29,7 @@ export default function HomePage() {
     {
       title: "Honed Navona Travertine",
       origin: "Quarried in Tivoli, Italy • Matte Finish",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBYX3_S5evT0FRnSLkxAPlF_JYgpyaHbf7dmoYVu2LVEf3HkG_tDLZQsrhph_frPyzWJ2LG9ygh_cnaw9dxjonLZIHqOEOX53P90RoLddP9vShOI0R0S8NJ4k5_GLoix8rptPpfB3633-PuzRH1R7yFT210y3MgreVSJ54Ru4Yj2FZnIng4r3-juTj7FNnz6ImxyxSAZCgbqpgZygt1UeXmHX99usEdD-i39hteeA",
+      image: "/images/allay_gal1.jpg",
       localFallback: "/images/allay_gal1.jpg",
       porosity: "2,480 kg/m³",
       lrv: "62% Diffuse",
@@ -39,7 +39,7 @@ export default function HomePage() {
     {
       title: "Quarter-Sawn Fumed Oak",
       origin: "Sustainable European Oak • Ammonia Fumed",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBkSsvUpnvRzvrJehXPOzOEp0nvUPgCd3Ag9rWjnKPtnxRUzQvyxpcO9SzNBVxrvWQ6pmps-5eWIyOgOq5ONXy3wrFR7aeJSnKxrQbAqBnbYsC8u03vM1gcxEFvY4CaV2bWgdAMwr67O_nz2hTgHXF53rvJax6jtTHvQ_Jc_URE6K2_ZMAK46mUO2ekgowa3jQ8pFZ3Cj-mzF-qvi8nvXglFMy9B4V1wsdeQfzX5A",
+      image: "/images/montique_gal1.jpg",
       localFallback: "/images/montique_gal1.jpg",
       porosity: "720 kg/m³",
       lrv: "28% Matte",
@@ -49,7 +49,7 @@ export default function HomePage() {
     {
       title: "Hand-Patinated Bronze",
       origin: "Crafted in Hyderabad • Wax Buffed Finish",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuChJDewOFDC81LVTYvNtg3066vx5jIgHZhvug_TEyEkLRismUtQ70Gh0T29Xj7fklZKEhRl1L9n51RZzfzI2D6C-Pa-eo3d5jtpP9-ZdlAQGmUMfJ9kdFTw4p5NdnDf8Hi3pGaorlnno_ld6fTiiAY1vadZFfz9pEfI17ayuVa2BehgHlYkOa67p8_vxPrp8D3yCsNxRqhUjNUtGwjufaDs9nwpDrfjLUINGdquTw",
+      image: "/images/allay_gal2.jpg",
       localFallback: "/images/allay_gal2.jpg",
       porosity: "8,800 kg/m³",
       lrv: "44% Specular",
@@ -59,7 +59,7 @@ export default function HomePage() {
     {
       title: "Acoustic Lime Plaster",
       origin: "Slaked Italian Lime • Monolithic Troweled",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAPNNGcMy1VymsAKRRqfG6xUCAmIK7DY7cJHn2cvYonmcokyB8_gHkUXTcU4vroMzBmxR9hsftT3GS_jfDOLS0ZeZbhPRksIigiI2rQntkkgco0tgf6Icn2iDuMCD1IdAFaDOFyO2NIlhpLZEv1oQW9ZYPWPoT3uPffSsIDseigQhy8yAo41SGmQKAJTSNuYJ53zuAOdRYY0oo_QpSWjFwavPV6cAs5aaTtUU3Xkw",
+      image: "/images/allay_gal3.jpg",
       localFallback: "/images/allay_gal3.jpg",
       porosity: "1,650 kg/m³",
       lrv: "74% Velvet",
@@ -131,7 +131,7 @@ export default function HomePage() {
       sqft: '8,600',
       year: '2024',
       materials: 'Navona Travertine • Fumed Oak',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAs_fb6UamXl_FLFohlRoubiWM29eAYuCDN5Bc5HnDutsmkteJkTed2bCOY2S1neic_juAjH_-sWOApxFfiSHVvZOOKCy-BtBwKfuda_4E0_Pd3vB1uDGdR3sy35L_PRIFef6dJaolbG-jG_XFRHFv7FeHVPbZdDflE1xt2hSur4stVVYaj2MRfpqI4HNfrYwYl2mc8uHJkw-dP8Ni1pt9jkIYfAHMI9W6U4kUe5w',
+      image: '/images/allay_cover.jpg',
       localFallback: '/images/allay_cover.jpg',
       aspect: 'md:col-span-8 aspect-[16/10]',
       desc: 'Sculpted cantilevered staircase encased in fluted acoustic limestone plaster, monolithic basalt slabs, and bronze balustrades.'
@@ -146,7 +146,7 @@ export default function HomePage() {
       sqft: '4,800',
       year: '2024',
       materials: 'French Oak • Patinated Bronze',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCC42JzAAH4u-Oe1ZUKqp1ghlTb0k8AqNyLVrR191fwt_cGpOLQBF-M7wwD7Ur0WPnsQDs-_gDiPlooxWwYVbJGwxz9CYSQKPZp9WxaEz6ZjEeTXo0toxvbBnanaP_SGcH-ZftEh4-L8zDyVcCPAM8DF_k3qVZBdlp9bN-UFExRxwgsHajDeEpqc5WXJd82dToIao54vz5Ehrd5r5T1G2F5EPuFIRjwcBtBsu5ldA',
+      image: '/images/montique_cover.jpg',
       localFallback: '/images/montique_cover.jpg',
       aspect: 'md:col-span-4 aspect-[4/5]',
       desc: 'Continuous fumed French oak floors balanced with polished Navona travertine kitchen island and warm diffuse perimeter clerestory light.'
@@ -161,7 +161,7 @@ export default function HomePage() {
       sqft: '11,200',
       year: '2023',
       materials: 'Granite Ashlar • Cane Weave',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdWpBDYPDkKE4MCA2VBN8AGaNU9gkXcMzd3vAXjIQ8dAC-lmF4W6w7n9ywy4TmplGrhqelseCyEq_1Sjp2XvyytroDgUs0miDP7rPjGtZXeD6tHtJBf1N4wyuB70ubedbrWhzO1A8n_Q2M7LRYzQpl1pp7zzMldwJFEI-FX5TIo0j5SNNCLXU20omUvssH8l9uFUiW7RQBBKJ2gw1CXfBzwBSmF1r4XYIoh_3qUw',
+      image: '/images/azure_cover.jpg',
       localFallback: '/images/azure_cover.jpg',
       aspect: 'md:col-span-4 aspect-[4/5]',
       desc: 'Courtyard architecture framing views of sacred granite peaks with sunken stone seating pavilions and private cloister corridors.'
@@ -176,15 +176,15 @@ export default function HomePage() {
       sqft: '6,500',
       year: '2024',
       materials: 'Calacatta Oro • Antique Brass',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAS6bkmyeySbGVXM-RmXB8L439KNxa8vSvHmgsRmLLZE6zWPgJdt_1HB6fv_4lui9DEh5-uR20mm5EkIkTZv0MTEh_MuyYNv7mASghxYFl3SM4NdlvOhZgyws7382OW8o8yG_ywuXoVPMhmyxCZfrtdOAWQaCMI2uW6DcomGgQExwlNCAQUIfV8ses63LLlLUDarPxzxWbkdA1Wh1X5NngFAcEwmUtUlfdAI3kamA',
+      image: '/images/office_cover.jpg',
       localFallback: '/images/office_cover.jpg',
       aspect: 'md:col-span-8 aspect-[16/10]',
       desc: 'Bespoke timber millwork with concealed micro-perforated acoustic panels and hand-patinated bronze lighting portals.'
     }
   ];
 
-  const filteredProjects = portfolioCategory === 'all' 
-    ? projects 
+  const filteredProjects = portfolioCategory === 'all'
+    ? projects
     : projects.filter(p => p.category === portfolioCategory);
 
   return (
@@ -246,10 +246,10 @@ export default function HomePage() {
         <div className="relative z-10 w-full overflow-hidden bg-atelierCream border border-stoneBorder group shadow-xl">
           <div className="relative aspect-[16/9] lg:aspect-[21/9] w-full overflow-hidden">
             {/* Main Hero Architectural Showcase Image */}
-            <img 
-              alt="The Artihc Studio — Master Villa Suite in Cane Weave, Travertine & Natural Light" 
-              className="editorial-zoom w-full h-full object-cover object-center filter saturate-[0.92] brightness-[0.97]" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbjuMY85fVzzhlgrYV15loL8falIOKtApGxCjcymqS_wy4lUTbYeeHYMgwp3Kg91EHp2NgKIyIjSZ9GUhz-jQqRcakO89DcgGdfRgNIJfbQagM__IgsHV-9JcQv7Im2I6_Gc-4lkeXpPeyXrsb5FE8KWgJ3rIMa0-9T2OlXIUQGprd5MSODK-2hicZGMmJEZbAP1ZnFJYdaKltk1p2b4zyW9vt3l_dE_VwHsIHMQ"
+            <img
+              alt="The Artihc Studio — Master Villa Suite in Cane Weave, Travertine & Natural Light"
+              className="editorial-zoom w-full h-full object-cover object-center filter saturate-[0.92] brightness-[0.97]"
+              src="/images/hero_villa.jpg"
               onError={(e) => { e.currentTarget.src = '/images/hero_villa.jpg'; }}
             />
             {/* Cinematic Vignette & Ambient Layer */}
@@ -421,13 +421,13 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center gap-4 text-[10px] tracking-[0.2em] uppercase font-sans">
             {/* View Mode Switch */}
             <div className="inline-flex p-1 bg-atelierCream border border-stoneBorder">
-              <button 
+              <button
                 onClick={() => setViewMode('editorial')}
                 className={`px-4 py-2 transition-all font-medium ${viewMode === 'editorial' ? 'bg-monolithNoir text-travertine' : 'text-monolithNoir/70 hover:text-monolithNoir'}`}
               >
                 Editorial Grid
               </button>
-              <button 
+              <button
                 onClick={() => setViewMode('blueprint')}
                 className={`px-4 py-2 transition-all font-medium ${viewMode === 'blueprint' ? 'bg-monolithNoir text-travertine' : 'text-monolithNoir/70 hover:text-monolithNoir'}`}
               >
@@ -446,11 +446,10 @@ export default function HomePage() {
                 <button
                   key={cat.id}
                   onClick={() => setPortfolioCategory(cat.id)}
-                  className={`px-3 py-1.5 transition-colors ${
-                    portfolioCategory === cat.id
+                  className={`px-3 py-1.5 transition-colors ${portfolioCategory === cat.id
                       ? 'text-monolithNoir border-b border-monolithNoir font-medium'
                       : 'text-monolithNoir/50 hover:text-monolithNoir'
-                  }`}
+                    }`}
                 >
                   {cat.label}
                 </button>
@@ -463,14 +462,14 @@ export default function HomePage() {
         {viewMode === 'editorial' && (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             {filteredProjects.map((project) => (
-              <div 
+              <div
                 key={project.id}
                 className={`${project.aspect} group relative bg-atelierCream border border-stoneBorder overflow-hidden flex flex-col justify-between`}
               >
                 <div className="overflow-hidden relative flex-1">
-                  <img 
-                    alt={project.title} 
-                    className="editorial-zoom w-full h-full object-cover" 
+                  <img
+                    alt={project.title}
+                    className="editorial-zoom w-full h-full object-cover"
                     src={project.image}
                     onError={(e) => { e.currentTarget.src = project.localFallback; }}
                   />
@@ -492,8 +491,8 @@ export default function HomePage() {
                       {project.desc}
                     </p>
                   </div>
-                  <Link 
-                    to={`/portfolio/${project.slug}`} 
+                  <Link
+                    to={`/portfolio/${project.slug}`}
                     className="w-10 h-10 border border-stoneBorder flex items-center justify-center hover:bg-monolithNoir hover:text-travertine transition-colors shrink-0 ml-4"
                   >
                     <ArrowRight className="w-4 h-4" />
@@ -521,7 +520,7 @@ export default function HomePage() {
               </thead>
               <tbody className="divide-y divide-stoneBorder text-monolithNoir/80">
                 {projects.map((proj) => (
-                  <tr 
+                  <tr
                     key={proj.id}
                     className="hover:bg-[#F8F6F1] transition-colors cursor-pointer group"
                   >
@@ -573,11 +572,10 @@ export default function HomePage() {
                   <button
                     key={mat.title}
                     onClick={() => setActiveMaterialIdx(idx)}
-                    className={`w-full text-left p-4 border transition-all flex items-center justify-between ${
-                      isActive
+                    className={`w-full text-left p-4 border transition-all flex items-center justify-between ${isActive
                         ? 'border-monolithNoir bg-monolithNoir text-travertine'
                         : 'border-stoneBorder bg-[#F8F6F1] text-monolithNoir hover:border-monolithNoir'
-                    }`}
+                      }`}
                   >
                     <div>
                       <div className="font-serif text-lg">{mat.title}</div>
@@ -608,31 +606,28 @@ export default function HomePage() {
               <div className="grid grid-cols-3 gap-2 text-[9px] tracking-[0.16em] uppercase font-sans">
                 <button
                   onClick={() => setLighting('morning')}
-                  className={`py-2.5 px-2 text-center border transition-all ${
-                    lighting === 'morning'
+                  className={`py-2.5 px-2 text-center border transition-all ${lighting === 'morning'
                       ? 'bg-monolithNoir text-travertine border-monolithNoir'
                       : 'bg-atelierCream text-monolithNoir border-stoneBorder hover:border-monolithNoir'
-                  }`}
+                    }`}
                 >
                   Morning East (4500K)
                 </button>
                 <button
                   onClick={() => setLighting('noon')}
-                  className={`py-2.5 px-2 text-center border transition-all ${
-                    lighting === 'noon'
+                  className={`py-2.5 px-2 text-center border transition-all ${lighting === 'noon'
                       ? 'bg-monolithNoir text-travertine border-monolithNoir'
                       : 'bg-atelierCream text-monolithNoir border-stoneBorder hover:border-monolithNoir'
-                  }`}
+                    }`}
                 >
                   Noon Solar (6500K)
                 </button>
                 <button
                   onClick={() => setLighting('night')}
-                  className={`py-2.5 px-2 text-center border transition-all ${
-                    lighting === 'night'
+                  className={`py-2.5 px-2 text-center border transition-all ${lighting === 'night'
                       ? 'bg-monolithNoir text-travertine border-monolithNoir'
                       : 'bg-atelierCream text-monolithNoir border-stoneBorder hover:border-monolithNoir'
-                  }`}
+                    }`}
                 >
                   Nocturnal (2700K)
                 </button>
@@ -643,8 +638,8 @@ export default function HomePage() {
           {/* Right Column: High-Res Macro Visual Inspector */}
           <div className="lg:col-span-7 flex flex-col">
             <div className="relative w-full aspect-[4/3] lg:aspect-[16/11] border border-stoneBorder overflow-hidden bg-monolithNoir group">
-              <img 
-                alt={`${activeMaterial.title} Macro Texture`} 
+              <img
+                alt={`${activeMaterial.title} Macro Texture`}
                 className={`w-full h-full object-cover transition-all duration-700 filter ${lightingStyles[lighting].filter}`}
                 src={activeMaterial.image}
                 onError={(e) => { e.currentTarget.src = activeMaterial.localFallback; }}
@@ -738,7 +733,7 @@ export default function HomePage() {
             </div>
 
             {/* Download Blueprint Button */}
-            <a 
+            <a
               href="/THE_ARTIHC_STUDIO_Client_Presentation.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -760,24 +755,22 @@ export default function HomePage() {
 
               <div className="relative w-full aspect-[16/10] overflow-hidden border border-stoneBorder select-none group shadow-lg">
                 {/* Built Reality Photo */}
-                <img 
-                  alt="Built Reality Master Suite with Cane Millwork" 
-                  className="absolute inset-0 w-full h-full object-cover" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkSsvUpnvRzvrJehXPOzOEp0nvUPgCd3Ag9rWjnKPtnxRUzQvyxpcO9SzNBVxrvWQ6pmps-5eWIyOgOq5ONXy3wrFR7aeJSnKxrQbAqBnbYsC8u03vM1gcxEFvY4CaV2bWgdAMwr67O_nz2hTgHXF53rvJax6jtTHvQ_Jc_URE6K2_ZMAK46mUO2ekgowa3jQ8pFZ3Cj-mzF-qvi8nvXglFMy9B4V1wsdeQfzX5A"
-                  onError={(e) => { e.currentTarget.src = '/images/allay_gal1.jpg'; }}
+                <img
+                  alt="Built Reality Master Suite with Cane Millwork"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  src="/images/allay_gal1.jpg"
                 />
 
                 {/* CAD Vector Blueprint Aesthetic Layer */}
-                <div 
+                <div
                   className="absolute inset-y-0 left-0 overflow-hidden border-r-2 border-bronze bg-[#141412]"
                   style={{ width: `${sliderPos}%` }}
                 >
-                  <img 
-                    alt="Architectural Plan & Wireframe Stage" 
-                    className="absolute inset-y-0 left-0 h-full max-w-none filter grayscale contrast-125 brightness-90 mix-blend-luminosity" 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMTlbczLYQaU3pchQEj1b7R8ATEr9nWCJzY-E2DzliuzADMiOPLABGzKG2dlyaz370O3V-H5q8pZ-xYMUI6UndbUVz2UywO48Mc8VH7rQJbZ75s0C6Mq2LQviGS2majqn8ZdFzvNLUOPLXttmUj0312EycgIOaAu9pJGCwxPIlC823OMb1tCGfghBdFYvbjJQiQH0MzwB7Vy-TQ_j4STVYJQEKCeF2JEnCaz91Eg" 
+                  <img
+                    alt="Architectural Plan & Wireframe Stage"
+                    className="absolute inset-y-0 left-0 h-full max-w-none filter grayscale contrast-125 brightness-90 mix-blend-luminosity"
+                    src="/images/allay_gal4.jpg"
                     style={{ width: '1200px' }}
-                    onError={(e) => { e.currentTarget.src = '/images/allay_gal4.jpg'; }}
                   />
                   <div className="absolute inset-0 bg-[#0E0E0C]/80 mix-blend-multiply flex items-center justify-center">
                     <div className="text-center space-y-2 p-6 border border-white/20 bg-monolithNoir/70 backdrop-blur-xs">
@@ -788,7 +781,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Slider Drag Handle */}
-                <div 
+                <div
                   className="absolute inset-y-0 -ml-4 flex items-center justify-center pointer-events-none"
                   style={{ left: `${sliderPos}%` }}
                 >
@@ -797,7 +790,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <input 
+                <input
                   type="range"
                   min="0"
                   max="100"
@@ -828,11 +821,10 @@ export default function HomePage() {
             {/* Project Gallery Diptych */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="relative aspect-[4/3] border border-stoneBorder overflow-hidden group shadow-xs">
-                <img 
-                  alt="Gourmet Island Detail in Honed Travertine" 
-                  className="editorial-zoom w-full h-full object-cover" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuChJDewOFDC81LVTYvNtg3066vx5jIgHZhvug_TEyEkLRismUtQ70Gh0T29Xj7fklZKEhRl1L9n51RZzfzI2D6C-Pa-eo3d5jtpP9-ZdlAQGmUMfJ9kdFTw4p5NdnDf8Hi3pGaorlnno_ld6fTiiAY1vadZFfz9pEfI17ayuVa2BehgHlYkOa67p8_vxPrp8D3yCsNxRqhUjNUtGwjufaDs9nwpDrfjLUINGdquTw"
-                  onError={(e) => { e.currentTarget.src = '/images/allay_gal2.jpg'; }}
+                <img
+                  alt="Gourmet Island Detail in Honed Travertine"
+                  className="editorial-zoom w-full h-full object-cover"
+                  src="/images/allay_gal2.jpg"
                 />
                 <div className="absolute bottom-3 left-3 bg-monolithNoir/85 backdrop-blur-xs px-3.5 py-1.5 text-travertine text-[9px] uppercase font-sans tracking-widest border border-white/10">
                   Gourmet Island Detail
@@ -840,11 +832,10 @@ export default function HomePage() {
               </div>
 
               <div className="relative aspect-[4/3] border border-stoneBorder overflow-hidden group shadow-xs">
-                <img 
-                  alt="Living Room Horizon with Monolithic Windows" 
-                  className="editorial-zoom w-full h-full object-cover" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPNNGcMy1VymsAKRRqfG6xUCAmIK7DY7cJHn2cvYonmcokyB8_gHkUXTcU4vroMzBmxR9hsftT3GS_jfDOLS0ZeZbhPRksIigiI2rQntkkgco0tgf6Icn2iDuMCD1IdAFaDOFyO2NIlhpLZEv1oQW9ZYPWPoT3uPffSsIDseigQhy8yAo41SGmQKAJTSNuYJ53zuAOdRYY0oo_QpSWjFwavPV6cAs5aaTtUU3Xkw"
-                  onError={(e) => { e.currentTarget.src = '/images/allay_gal3.jpg'; }}
+                <img
+                  alt="Living Room Horizon with Monolithic Windows"
+                  className="editorial-zoom w-full h-full object-cover"
+                  src="/images/allay_gal3.jpg"
                 />
                 <div className="absolute bottom-3 left-3 bg-monolithNoir/85 backdrop-blur-xs px-3.5 py-1.5 text-travertine text-[9px] uppercase font-sans tracking-widest border border-white/10">
                   Living Room Horizon
@@ -904,11 +895,10 @@ export default function HomePage() {
                         <div
                           key={typ.title}
                           onClick={() => setSelectedTypology(typ.title)}
-                          className={`border p-5 cursor-pointer transition-all flex items-start justify-between ${
-                            selectedTypology === typ.title
+                          className={`border p-5 cursor-pointer transition-all flex items-start justify-between ${selectedTypology === typ.title
                               ? 'border-monolithNoir bg-atelierCream'
                               : 'border-stoneBorder hover:border-monolithNoir'
-                          }`}
+                            }`}
                         >
                           <div>
                             <div className="font-serif text-lg text-monolithNoir">{typ.title}</div>
@@ -921,8 +911,8 @@ export default function HomePage() {
                       ))}
                     </div>
                     <div className="pt-4 flex justify-end">
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => setCurrentStep(2)}
                         className="px-8 py-3.5 bg-monolithNoir text-travertine text-[10px] tracking-[0.24em] uppercase font-sans hover:bg-bronze transition-colors flex items-center gap-3"
                       >
@@ -944,11 +934,10 @@ export default function HomePage() {
                             key={city}
                             type="button"
                             onClick={() => setSelectedCity(city)}
-                            className={`py-3 px-4 border text-xs tracking-wider uppercase font-sans transition-all ${
-                              selectedCity === city
+                            className={`py-3 px-4 border text-xs tracking-wider uppercase font-sans transition-all ${selectedCity === city
                                 ? 'border-monolithNoir bg-monolithNoir text-travertine'
                                 : 'border-stoneBorder bg-travertine text-monolithNoir hover:border-monolithNoir'
-                            }`}
+                              }`}
                           >
                             {city}
                           </button>
@@ -958,7 +947,7 @@ export default function HomePage() {
 
                     <div className="space-y-2 pt-2">
                       <label className="block text-xs uppercase tracking-[0.2em] text-monolithNoir font-medium">Estimated Footprint (SQ.FT)</label>
-                      <input 
+                      <input
                         type="text"
                         value={sqft}
                         onChange={(e) => setSqft(e.target.value)}
@@ -968,15 +957,15 @@ export default function HomePage() {
                     </div>
 
                     <div className="pt-4 flex justify-between">
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => setCurrentStep(1)}
                         className="px-6 py-3 border border-stoneBorder text-monolithNoir text-[10px] tracking-[0.2em] uppercase font-sans"
                       >
                         Back
                       </button>
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => setCurrentStep(3)}
                         className="px-8 py-3.5 bg-monolithNoir text-travertine text-[10px] tracking-[0.24em] uppercase font-sans hover:bg-bronze transition-colors"
                       >
@@ -999,11 +988,10 @@ export default function HomePage() {
                         <div
                           key={tier}
                           onClick={() => setSelectedBudget(tier)}
-                          className={`border p-4 cursor-pointer transition-all flex items-center justify-between ${
-                            selectedBudget === tier
+                          className={`border p-4 cursor-pointer transition-all flex items-center justify-between ${selectedBudget === tier
                               ? 'border-monolithNoir bg-atelierCream'
                               : 'border-stoneBorder hover:border-monolithNoir'
-                          }`}
+                            }`}
                         >
                           <span className="font-serif text-lg text-monolithNoir">{tier}</span>
                           <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${selectedBudget === tier ? 'border-monolithNoir' : 'border-stoneBorder'}`}>
@@ -1014,15 +1002,15 @@ export default function HomePage() {
                     </div>
 
                     <div className="pt-4 flex justify-between">
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => setCurrentStep(2)}
                         className="px-6 py-3 border border-stoneBorder text-monolithNoir text-[10px] tracking-[0.2em] uppercase font-sans"
                       >
                         Back
                       </button>
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => setCurrentStep(4)}
                         className="px-8 py-3.5 bg-monolithNoir text-travertine text-[10px] tracking-[0.24em] uppercase font-sans hover:bg-bronze transition-colors"
                       >
@@ -1038,23 +1026,23 @@ export default function HomePage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-[10px] uppercase tracking-wider text-monolithNoir/60 font-sans mb-1">Your Full Name</label>
-                        <input 
-                          type="text" 
-                          required 
+                        <input
+                          type="text"
+                          required
                           value={clientName}
                           onChange={(e) => setClientName(e.target.value)}
-                          placeholder="Srikanth Reddy" 
+                          placeholder="Srikanth Reddy"
                           className="w-full p-3.5 border border-stoneBorder bg-travertine font-sans text-xs focus:outline-hidden focus:border-monolithNoir text-monolithNoir"
                         />
                       </div>
                       <div>
                         <label className="block text-[10px] uppercase tracking-wider text-monolithNoir/60 font-sans mb-1">Direct Phone / WhatsApp</label>
-                        <input 
-                          type="tel" 
-                          required 
+                        <input
+                          type="tel"
+                          required
                           value={clientPhone}
                           onChange={(e) => setClientPhone(e.target.value)}
-                          placeholder="+91 98490 00000" 
+                          placeholder="+91 98490 00000"
                           className="w-full p-3.5 border border-stoneBorder bg-travertine font-sans text-xs focus:outline-hidden focus:border-monolithNoir text-monolithNoir"
                         />
                       </div>
@@ -1062,20 +1050,20 @@ export default function HomePage() {
 
                     <div>
                       <label className="block text-[10px] uppercase tracking-wider text-monolithNoir/60 font-sans mb-1">Spatial Brief &amp; Specific Vision</label>
-                      <textarea 
-                        rows={3} 
+                      <textarea
+                        rows={3}
                         value={clientNotes}
                         onChange={(e) => setClientNotes(e.target.value)}
-                        placeholder="Outline your spatial aspirations, timeline, or preferred natural stone elements..." 
+                        placeholder="Outline your spatial aspirations, timeline, or preferred natural stone elements..."
                         className="w-full p-3.5 border border-stoneBorder bg-travertine font-sans text-xs focus:outline-hidden focus:border-monolithNoir text-monolithNoir"
                       ></textarea>
                     </div>
 
                     <div className="p-4 border border-stoneBorder bg-atelierCream flex items-center justify-between text-xs font-sans">
                       <span className="text-monolithNoir/70">Prefers Instant Direct Partner VIP Chat</span>
-                      <a 
-                        href={`https://wa.me/918772289011?text=${encodeURIComponent(`Hello The Artihc Studio, I would like to commission an architectural project (${selectedTypology}) in ${selectedCity} (${sqft}).`)}`} 
-                        target="_blank" 
+                      <a
+                        href={`https://wa.me/918772289011?text=${encodeURIComponent(`Hello The Artihc Studio, I would like to commission an architectural project (${selectedTypology}) in ${selectedCity} (${sqft}).`)}`}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-bronze uppercase tracking-wider font-medium text-[10px] hover:underline"
                       >
@@ -1085,15 +1073,15 @@ export default function HomePage() {
                     </div>
 
                     <div className="pt-4 flex justify-between">
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => setCurrentStep(3)}
                         className="px-6 py-3 border border-stoneBorder text-monolithNoir text-[10px] tracking-[0.2em] uppercase font-sans"
                       >
                         Back
                       </button>
-                      <button 
-                        type="submit" 
+                      <button
+                        type="submit"
                         className="px-10 py-4 bg-monolithNoir text-travertine text-[10px] tracking-[0.26em] uppercase font-sans hover:bg-bronze transition-colors flex items-center gap-2"
                       >
                         <span>Submit Atelier Commission</span>

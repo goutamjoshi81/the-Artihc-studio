@@ -1,124 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Grid, List, Sparkles } from 'lucide-react';
+import { ArrowRight, Grid, List } from 'lucide-react';
 import { studioStore } from '../../data/store';
 
 export default function PortfolioPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [viewMode, setViewMode] = useState('editorial'); // 'editorial' | 'technical'
+  const [projects, setProjects] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  const monographs = [
-    {
-      id: 'TAS-01',
-      plate: 'PLATE 01 • MONOLITHIC RESIDENCE',
-      title: 'The Tirupati Ridge Sanctuary',
-      slug: 'the-house-of-allay',
-      category: 'residential',
-      categoryName: 'Private Residential Estates',
-      location: '13.6288° N • TIRUPATI',
-      footprint: '9,200 SQ.FT • 2024',
-      scale: '9,200 SQ.FT',
-      year: '2024',
-      materials: ['Honed Navona Travertine', 'Artisanal Cane Weave Screens', 'Basalt Flagstone'],
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDYH_dGvZpJnpqUZVm-_ha2KSLnZ9C6bHfSazIoT1SklgQGNVs3j763t9WPSVoVEp92kNML5uV9xZLWFaJSYe7IWsR8JciiPpFyQB3b7pIQQbJQF3zgBaeOn5MZPtNlE4yacPkiuI_AsLQEAy3pZl7Gd7hMqUQMw3RV5E7cxX5FiwedC-cbZ2B0VsQtMdyf_Gy-NiFTMZWXy6hJLtDDFBaqcpsGopxIYJJpNWqajQ',
-      localFallback: '/images/allay_cover.jpg',
-      aspect: 'lg:col-span-8 aspect-[16/10]',
-      desc: 'Deep cantilevered travertine planes casting sculptural shadows across tranquil reflective water pools, framed against the dry granite peaks of Seshachalam.'
-    },
-    {
-      id: 'TAS-02',
-      plate: 'PLATE 02 • HIGH-ALTITUDE MONOGRAPH',
-      title: 'Indiranagar Sky Sanctuary',
-      slug: 'montique-residence',
-      category: 'penthouse',
-      categoryName: 'Duplex Penthouses',
-      location: '12.9716° N • BANGALORE',
-      footprint: '4,800 SQ.FT • 2024',
-      scale: '4,800 SQ.FT',
-      year: '2024',
-      materials: ['Quarter-Sawn Fumed Oak', 'Honed Calacatta Marble', 'Patinated Bronze'],
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCC42JzAAH4u-Oe1ZUKqp1ghlTb0k8AqNyLVrR191fwt_cGpOLQBF-M7wwD7Ur0WPnsQDs-_gDiPlooxWwYVbJGwxz9CYSQKPZp9WxaEz6ZjEeTXo0toxvbBnanaP_SGcH-ZftEh4-L8zDyVcCPAM8DF_k3qVZBdlp9bN-UFExRxwgsHajDeEpqc5WXJd82dToIao54vz5Ehrd5r5T1G2F5EPuFIRjwcBtBsu5ldA',
-      localFallback: '/images/montique_cover.jpg',
-      aspect: 'lg:col-span-4 aspect-[4/5]',
-      desc: 'Two-level sky duplex featuring continuous acoustic lime plaster ceilings and custom French oak millwork with concealed flush reveals.'
-    },
-    {
-      id: 'TAS-03',
-      plate: 'PLATE 03 • MONUMENTAL DUPLEX',
-      title: 'The Alwal Duplex Residence',
-      slug: 'azure-estate',
-      category: 'penthouse',
-      categoryName: 'Duplex Penthouses',
-      location: '17.3850° N • HYDERABAD',
-      footprint: '8,600 SQ.FT • 2024',
-      scale: '8,600 SQ.FT',
-      year: '2024',
-      materials: ['Vein-Cut Travertine', 'Cast Antique Brass', 'Fumed Oak'],
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAs_fb6UamXl_FLFohlRoubiWM29eAYuCDN5Bc5HnDutsmkteJkTed2bCOY2S1neic_juAjH_-sWOApxFfiSHVvZOOKCy-BtBwKfuda_4E0_Pd3vB1uDGdR3sy35L_PRIFef6dJaolbG-jG_XFRHFv7FeHVPbZdDflE1xt2hSur4stVVYaj2MRfpqI4HNfrYwYl2mc8uHJkw-dP8Ni1pt9jkIYfAHMI9W6U4kUe5w',
-      localFallback: '/images/azure_cover.jpg',
-      aspect: 'lg:col-span-4 aspect-[4/5]',
-      desc: 'Monumental limestone colonnades dividing formal entertaining halls from private family cloistered corridors.'
-    },
-    {
-      id: 'TAS-04',
-      plate: 'PLATE 04 • EXECUTIVE MONOGRAPH',
-      title: 'The Atelier & Boardroom Gallery',
-      slug: 'cerulean-retreat',
-      category: 'workplace',
-      categoryName: 'Executive Workplaces',
-      location: '17.4325° N • JUBILEE HILLS',
-      footprint: '6,500 SQ.FT • 2024',
-      scale: '6,500 SQ.FT',
-      year: '2024',
-      materials: ['Solid Teak Lathed Portals', 'Raw Fluted Plaster', 'Acoustic Felt'],
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAS6bkmyeySbGVXM-RmXB8L439KNxa8vSvHmgsRmLLZE6zWPgJdt_1HB6fv_4lui9DEh5-uR20mm5EkIkTZv0MTEh_MuyYNv7mASghxYFl3SM4NdlvOhZgyws7382OW8o8yG_ywuXoVPMhmyxCZfrtdOAWQaCMI2uW6DcomGgQExwlNCAQUIfV8ses63LLlLUDarPxzxWbkdA1Wh1X5NngFAcEwmUtUlfdAI3kamA',
-      localFallback: '/images/office_cover.jpg',
-      aspect: 'lg:col-span-8 aspect-[16/10]',
-      desc: 'Bespoke corporate sanctuary balancing boardroom gravitas with contemplative natural light wells and raw stone hearth.'
-    },
-    {
-      id: 'TAS-05',
-      plate: 'PLATE 05 • RESIDENTIAL RETREAT',
-      title: 'Sesha Hills Villa Estate',
-      slug: 'the-house-of-allay',
-      category: 'residential',
-      categoryName: 'Private Residential Estates',
-      location: '13.6288° N • TIRUPATI',
-      footprint: '11,200 SQ.FT • 2023',
-      scale: '11,200 SQ.FT',
-      year: '2023',
-      materials: ['Granite Ashlar', 'Cane Weave', 'Honed Travertine'],
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdWpBDYPDkKE4MCA2VBN8AGaNU9gkXcMzd3vAXjIQ8dAC-lmF4W6w7n9ywy4TmplGrhqelseCyEq_1Sjp2XvyytroDgUs0miDP7rPjGtZXeD6tHtJBf1N4wyuB70ubedbrWhzO1A8n_Q2M7LRYzQpl1pp7zzMldwJFEI-FX5TIo0j5SNNCLXU20omUvssH8l9uFUiW7RQBBKJ2gw1CXfBzwBSmF1r4XYIoh_3qUw',
-      localFallback: '/images/hero_dusk_mansion.jpg',
-      aspect: 'lg:col-span-6 aspect-[16/10]',
-      desc: 'Courtyard architecture framing views of sacred granite peaks with sunken stone seating pavilions and private cloister corridors.'
-    },
-    {
-      id: 'TAS-06',
-      plate: 'PLATE 06 • BOUTIQUE HOSPITALITY',
-      title: 'Karakambadi Pavilion Retreat',
-      slug: 'bijou-residence',
-      category: 'hospitality',
-      categoryName: 'Bespoke Hospitality',
-      location: '13.6500° N • TIRUPATI',
-      footprint: '14,500 SQ.FT • 2024',
-      scale: '14,500 SQ.FT',
-      year: '2024',
-      materials: ['Local Charnockite Stone', 'Teak Pillars', 'Clay Tile Roofs'],
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCbjuMY85fVzzhlgrYV15loL8falIOKtApGxCjcymqS_wy4lUTbYeeHYMgwp3Kg91EHp2NgKIyIjSZ9GUhz-jQqRcakO89DcgGdfRgNIJfbQagM__IgsHV-9JcQv7Im2I6_Gc-4lkeXpPeyXrsb5FE8KWgJ3rIMa0-9T2OlXIUQGprd5MSODK-2hicZGMmJEZbAP1ZnFJYdaKltk1p2b4zyW9vt3l_dE_VwHsIHMQ',
-      localFallback: '/images/bijou_cover.jpg',
-      aspect: 'lg:col-span-6 aspect-[16/10]',
-      desc: 'Monolithic guest pavilions surrounding a central lotus court, engineered with bioclimatic wind chimneys.'
-    }
-  ];
-
-  const filteredMonographs = selectedCategory === 'all'
-    ? monographs
-    : monographs.filter(m => m.category === selectedCategory);
+    const update = () => {
+      setProjects(studioStore.getProjects(selectedCategory));
+      setCategories(studioStore.categories || []);
+    };
+    update();
+    return studioStore.subscribe(update);
+  }, [selectedCategory]);
 
   return (
     <main className="w-full pt-28 bg-travertine">
@@ -172,23 +71,17 @@ export default function PortfolioPage() {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           {/* Typology Selector */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-            {[
-              { id: 'all', label: 'ALL TYPOLOGIES' },
-              { id: 'residential', label: 'PRIVATE RESIDENTIAL ESTATES' },
-              { id: 'penthouse', label: 'DUPLEX PENTHOUSES' },
-              { id: 'workplace', label: 'EXECUTIVE WORKPLACES' },
-              { id: 'hospitality', label: 'BESPOKE HOSPITALITY' }
-            ].map(cat => (
+            {categories.map(cat => (
               <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
+                key={cat.id || cat.slug}
+                onClick={() => setSelectedCategory(cat.slug)}
                 className={`px-4 py-2 font-sans text-[10px] tracking-[0.18em] uppercase transition-colors whitespace-nowrap ${
-                  selectedCategory === cat.id
+                  selectedCategory === cat.slug
                     ? 'bg-monolithNoir text-travertine font-medium'
                     : 'bg-atelierCream text-monolithNoir/70 hover:text-monolithNoir'
                 }`}
               >
-                {cat.label}
+                {cat.name} ({cat.count})
               </button>
             ))}
           </div>
@@ -225,59 +118,62 @@ export default function PortfolioPage() {
       {viewMode === 'editorial' && (
         <section className="w-full px-6 lg:px-12 max-w-[1720px] mx-auto py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
-            {filteredMonographs.map((item) => (
-              <article key={item.id} className={`${item.aspect} flex flex-col group border border-stoneBorder bg-atelierCream`}>
-                <div className="relative w-full h-[340px] lg:h-[460px] overflow-hidden bg-atelierCream">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                    alt={item.title}
-                    src={item.image}
-                    onError={(e) => { e.currentTarget.src = item.localFallback; }}
-                  />
-                  <div className="absolute top-4 left-4 bg-monolithNoir/90 backdrop-blur-xs px-3 py-1 text-travertine font-sans text-[9px] tracking-[0.22em] uppercase">
-                    {item.plate}
+            {projects.map((item, idx) => {
+              const gridSpan = idx % 3 === 0 ? 'lg:col-span-8' : 'lg:col-span-4';
+              return (
+                <article key={item.id} className={`${gridSpan} flex flex-col group border border-stoneBorder bg-atelierCream`}>
+                  <div className="relative w-full h-[340px] lg:h-[460px] overflow-hidden bg-atelierCream">
+                    <img
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      alt={item.title}
+                      src={item.cover_image || '/images/hero_villa.jpg'}
+                      loading="lazy"
+                    />
+                    <div className="absolute top-4 left-4 bg-monolithNoir/90 backdrop-blur-xs px-3 py-1 text-travertine font-sans text-[9px] tracking-[0.22em] uppercase">
+                      PLATE 0{idx + 1} • {item.type}
+                    </div>
+                    <div className="absolute bottom-4 right-4 bg-monolithNoir/85 backdrop-blur-xs px-3 py-1 text-warmOchre font-sans text-[9px] tracking-[0.22em] uppercase">
+                      {item.location}
+                    </div>
                   </div>
-                  <div className="absolute bottom-4 right-4 bg-monolithNoir/85 backdrop-blur-xs px-3 py-1 text-warmOchre font-sans text-[9px] tracking-[0.22em] uppercase">
-                    {item.location}
-                  </div>
-                </div>
 
-                <div className="p-8 bg-travertine flex flex-col justify-between flex-1 hairline-t">
-                  <div className="space-y-2">
-                    <div className="flex flex-col lg:flex-row lg:items-baseline justify-between gap-2">
-                      <h2 className="font-serif text-2xl lg:text-3xl text-monolithNoir font-normal">
-                        {item.title}
-                      </h2>
-                      <div className="font-sans text-[10px] text-bronze tracking-[0.22em] uppercase">
-                        {item.footprint}
+                  <div className="p-8 bg-travertine flex flex-col justify-between flex-1 hairline-t">
+                    <div className="space-y-2">
+                      <div className="flex flex-col lg:flex-row lg:items-baseline justify-between gap-2">
+                        <h2 className="font-serif text-2xl lg:text-3xl text-monolithNoir font-normal">
+                          {item.title}
+                        </h2>
+                        <div className="font-sans text-[10px] text-bronze tracking-[0.22em] uppercase">
+                          {item.area} • {item.year}
+                        </div>
                       </div>
-                    </div>
-                    <p className="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-
-                  <div className="mt-6 pt-6 hairline-t flex items-center justify-between">
-                    <div className="flex flex-wrap items-center gap-2 text-[9px] uppercase tracking-wider text-monolithNoir/60 font-sans">
-                      <span className="text-monolithNoir font-semibold">Materials:</span>
-                      {item.materials.map((mat, i) => (
-                        <span key={i}>
-                          {mat} {i < item.materials.length - 1 && '• '}
-                        </span>
-                      ))}
+                      <p className="font-sans text-xs text-monolithNoir/70 font-light leading-relaxed">
+                        {item.short_desc}
+                      </p>
                     </div>
 
-                    <Link
-                      to={`/portfolio/${item.slug}`}
-                      className="inline-flex items-center gap-2 text-bronze text-[10px] tracking-[0.2em] uppercase font-sans font-medium hover:text-monolithNoir transition-colors shrink-0"
-                    >
-                      <span>View Monograph</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                    <div className="mt-6 pt-6 hairline-t flex items-center justify-between">
+                      <div className="flex flex-wrap items-center gap-2 text-[9px] uppercase tracking-wider text-monolithNoir/60 font-sans">
+                        <span className="text-monolithNoir font-semibold">Materials:</span>
+                        {(item.materials || []).map((mat, i) => (
+                          <span key={i}>
+                            {mat}{i < item.materials.length - 1 ? ' • ' : ''}
+                          </span>
+                        ))}
+                      </div>
+
+                      <Link
+                        to={`/portfolio/${item.slug}`}
+                        className="inline-flex items-center gap-2 text-bronze text-[10px] tracking-[0.2em] uppercase font-sans font-medium hover:text-monolithNoir transition-colors shrink-0"
+                      >
+                        <span>View Monograph</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </section>
       )}
@@ -299,14 +195,14 @@ export default function PortfolioPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-stoneBorder text-monolithNoir/80">
-                {filteredMonographs.map((m) => (
+                {projects.map((m, idx) => (
                   <tr key={m.id} className="hover:bg-travertine transition-colors">
-                    <td className="py-5 px-6 font-mono text-[11px] text-bronze">{m.id}</td>
+                    <td className="py-5 px-6 font-mono text-[11px] text-bronze">TAS-0{m.id || idx + 1}</td>
                     <td className="py-5 px-6 font-serif text-base font-normal text-monolithNoir">{m.title}</td>
-                    <td className="py-5 px-6 uppercase text-[10px] tracking-wider">{m.categoryName}</td>
+                    <td className="py-5 px-6 uppercase text-[10px] tracking-wider">{m.category_name || m.type}</td>
                     <td className="py-5 px-6">{m.location}</td>
-                    <td className="py-5 px-6 font-mono">{m.scale}</td>
-                    <td className="py-5 px-6 text-monolithNoir/60">{m.materials.join(' • ')}</td>
+                    <td className="py-5 px-6 font-mono">{m.area}</td>
+                    <td className="py-5 px-6 text-monolithNoir/60">{(m.materials || []).join(' • ')}</td>
                     <td className="py-5 px-6 text-right">
                       <Link to={`/portfolio/${m.slug}`} className="text-[10px] uppercase tracking-wider text-bronze underline">
                         Open Dossier

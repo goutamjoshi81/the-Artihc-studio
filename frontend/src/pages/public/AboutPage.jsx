@@ -97,10 +97,10 @@ export default function AboutPage() {
           {/* Image Spread (Principals in Spatial Atelier) */}
           <div className="lg:col-span-7 flex flex-col space-y-2">
             <div className="relative w-full aspect-[4/5] overflow-hidden bg-atelierCream border border-stoneBorder">
-              <img 
-                className="w-full h-full object-cover object-center filter grayscale contrast-105" 
-                alt="Founders V. Rao & A. Som in the Atelier" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwPEMCl7suCnt7xJrm0cLs4mWBrVhepg-inTo8N2Qzl-fgiaS6wo4BO_N7Xx4ODf6bOqjIU5siU3WYbbPx3cjgHIx5SavDc4ykXsLLoGy0eyK96tb6qRweIf_uHQPJFk1LPuqNYIi72hO_qgJHAgMKv6v9dueEbUWfSr3AMdCglHGt9X-Ei62N2_xk6ii9kFo3Vz9OdkwO6G9eiicAz6AA3il1e3M0NfInaJ2znw"
+              <img
+                className="w-full h-full object-cover object-center filter grayscale contrast-105"
+                alt="Founders V. Rao & A. Som in the Atelier"
+                src="/images/about_atelier.jpg"
                 onError={(e) => { e.currentTarget.src = '/images/about_atelier.jpg'; }}
               />
               <div className="absolute bottom-4 left-4 bg-travertine/90 backdrop-blur-md px-3.5 py-1.5 flex items-center gap-3 border border-stoneBorder">

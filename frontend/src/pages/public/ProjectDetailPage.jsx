@@ -197,7 +197,7 @@ export default function ProjectDetailPage() {
                   <img
                     alt="CAD Blueprint Stage"
                     className="absolute inset-y-0 left-0 h-full max-w-none filter grayscale contrast-125 brightness-90 mix-blend-luminosity"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMTlbczLYQaU3pchQEj1b7R8ATEr9nWCJzY-E2DzliuzADMiOPLABGzKG2dlyaz370O3V-H5q8pZ-xYMUI6UndbUVz2UywO48Mc8VH7rQJbZ75s0C6Mq2LQviGS2majqn8ZdFzvNLUOPLXttmUj0312EycgIOaAu9pJGCwxPIlC823OMb1tCGfghBdFYvbjJQiQH0MzwB7Vy-TQ_j4STVYJQEKCeF2JEnCaz91Eg"
+                    src="/images/allay_gal4.jpg"
                     style={{ width: '1200px' }}
                     onError={(e) => { e.currentTarget.src = '/images/allay_gal4.jpg'; }}
                   />
